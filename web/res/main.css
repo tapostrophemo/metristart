@@ -1,0 +1,110 @@
+/* style-guide: layout, fonts, colors
+ *
+ * #containerWrapper/#container - sets page boundary; includes header at top, footer at bottom
+ * #content - unique content per-page; may be subdivided into columns
+ * #header/#footer - self-explanatory
+ *
+ * Garamond/serif, bold, large sizes (16-28px) - headings
+ * Arial/sans-serif, normal, medium sizes (10-12px) - body text
+ *
+ * #FFFFFF - white - page background
+ * #626264 - dark grey - body text
+ * #353220 - dark olive green - headings
+ * #D9D4AE - light tan - accent
+ * #716f5b - dark tan - links
+ * #E6F1F3 - pale blue - alt. background/borders/accents
+ */
+
+/* resets */
+html {
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0 0 0 1em;
+}
+
+p {
+  margin: 0;
+}
+
+td {
+  vertical-align: top;
+}
+
+/* our stuff */
+body {
+  background-color: #E6F1F3;
+  color: #626264;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+
+.rounded {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+#containerWrapper {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  background-color: #FFFFFF;
+  margin: 3em auto;
+  padding: 2em;
+  width: 965px;
+}
+
+#footer {
+  border-top: 1px solid #D9D4AE;
+  font-size: 10px;
+  text-align: right;
+}
+
+td, th {
+  text-align: left;
+}
+
+th, b {
+  color: #353220;
+}
+
+a {
+  color: #716f5b;
+  font-weight: bold;
+}
+
+table.report {
+  border-left: 1px solid #E6F1F3;
+  border-top: 1px solid #E6F1F3;
+}
+.report td, .report th {
+  border-bottom: 1px solid #E6F1F3;
+  border-right: 1px solid #E6F1F3;
+  text-align: right;
+}
+
+p {
+  margin: 1em auto;
+}
+
+h1 {
+  border-bottom: 1px solid #D9D4AE;
+  color: #353220;
+  font-family: Garamond, serif;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+pre {
+  background-color: #E6F1F3;
+  font-size: 10px;
+  overflow: auto;
+  padding: 2em;
+}
+

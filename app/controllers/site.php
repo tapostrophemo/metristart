@@ -3,7 +3,7 @@
 class Site extends Controller
 {
   function index() {
-    echo 'TODO: create the site(!)';
+    $this->load->view('pageTemplate', array('content' => $this->load->view('wireframes/dashboard', null, true)));
   }
 }
 
