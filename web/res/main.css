@@ -79,6 +79,10 @@ a {
   font-weight: bold;
 }
 
+label {
+  font-weight: bold;
+}
+
 table.report {
   border-left: 1px solid #E6F1F3;
   border-top: 1px solid #E6F1F3;
@@ -93,12 +97,22 @@ p {
   margin: 1em auto;
 }
 
-h1 {
-  border-bottom: 1px solid #D9D4AE;
+h1, h2 {
   color: #353220;
   font-family: Garamond, serif;
-  font-size: 28px;
   font-weight: bold;
+}
+h1 {
+  border-bottom: 1px solid #D9D4AE;
+  font-size: 28px;
+}
+h2 {
+  font-size: 18px;
+}
+
+.entryForm {
+  padding: 0.5em 2em;
+  background: transparent url(/res/lightBlueGradient.png) top left repeat-x;
 }
 
 pre {
