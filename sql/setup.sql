@@ -11,3 +11,11 @@ create table users(
   primary key(id)
 );
 
+create table metrics (
+  user_id int(10) unsigned not null references users.id,
+  name varchar(32) not null,
+  segment varchar(32) default null,
+  data varchar(255) default null,
+  primary key(user_id, name, segment)
+);
+

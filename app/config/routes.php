@@ -9,3 +9,5 @@ $route['logout'] = 'site/logout';
 
 $route['dashboard'] = 'users/dashboard';
 
+$route['revenue'] = 'metrics/revenue';
+

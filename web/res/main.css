@@ -117,6 +117,10 @@ h2 {
   font-size: 18px;
 }
 
+hr {
+  color: #D9D4AE;
+}
+
 .entryForm {
   padding: 0.5em 2em;
   background: transparent url(/res/lightBlueGradient.png) top left repeat-x;

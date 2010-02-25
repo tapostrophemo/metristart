@@ -54,44 +54,6 @@
 
 <hr/>
 
-<h2>Enter Revenues</h2>
-
-<table class="entryForm rounded">
- <tr>
-  <td><label>Month</label></td>
-  <td><input type="text" size="6"/></td>
- </tr>
- <tr>
-  <td><label>Total Revenue</label></td>
-  <td><input type="text" size="10"/></td>
- </tr>
- <tr>
-  <td><label>Total Variable Costs</label></td>
-  <td><input type="text" size="10"/></td>
- </tr>
- <tr>
-  <td><label>Contribution Margin</label></td>
-  <td>$0 <small>(on-screen calculation)</small></td>
- </tr>
- <tr>
-  <td><label>Total Fixed Costs</label></td>
-  <td><input type="text" size="10"/></td>
- </tr>
- <tr>
-  <td><label>Net Operating Income</label></td>
-  <td>$0 <small>(on-screen calculation)</small></td>
- </tr>
- <tr>
-  <td></td>
-  <td>
-   <input type="submit" value="Save"/>
-   <input type="button" value="Cancel"/>
-  </td>
- </tr>
-</table>
-
-<hr/>
-
 <h2>Enter Acquisition Costs</h2>
 
 <table class="entryForm rounded">
