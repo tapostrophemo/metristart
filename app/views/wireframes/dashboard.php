@@ -1,20 +1,3 @@
-<p><b>High-level</b>: you want to validate your Customer Discovery hypothesis, using:</p>
-<ul>
- <li>Customer acquisition cost</li>
- <li>Viral coefficient</li>
- <li>Customer dlfetime value</li>
- <li>Average selling price/order size</li>
- <li>Monthly burn rate</li>
- <li>etc.</li>
-</ul>
-
-<p>see also: <a href="http://steveblank.com/2010/02/22/no-accounting-for-startups/">http://steveblank.com/2010/02/22/no-accounting-for-startups/</a>
- and <a href="http://news.ycombinator.com/item?id=1142640">http://news.ycombinator.com/item?id=1142640</a></p>
-
-<p>What this site would do is: 1) allow you to collect the right data if you're starting off on a
- startup, but more importantly, 2) analyze patterns in your data and make suggestions on how to
- improve your odds of startup success.</p>
-
 <p>The following is a sample of what the "dashboard" page might look like:</p>
 
 <table border="0" width="100%" cellpadding="0" cellspacing="0">

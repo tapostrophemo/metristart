@@ -28,7 +28,7 @@
  <?php endif; ?>
 
   <div id="footer">
-   Copyright &copy; 2010, <a href="http://www.eastofcleveland.com">Dan Parks</a>. All Rights Reserved.
+   Copyright &copy; 2010, <a href="http://www.eastofcleveland.com" target="_blank">Dan Parks</a>. All Rights Reserved.
   </div>
 
  </div>
