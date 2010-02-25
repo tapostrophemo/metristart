@@ -10,14 +10,25 @@
 <div id="containerWrapper">
  <div id="container">
 
-  <h1>MetriStart - Metrics For Your Startup</h1>
+  <h1><a href="/">MetriStart - Metrics For Your Startup</a></h1>
 
   <div id="content">
+  <?php if ($this->session->flashdata('err')): ?>
+   <div class="err rounded"><?=$this->session->flashdata('err')?></div>
+  <?php endif; ?>
+  <?php if ($this->session->flashdata('msg')): ?>
+   <div class="msg rounded"><?=$this->session->flashdata('msg')?></div>
+  <?php endif; ?>
+
    <?=$content?>
   </div>
 
+ <?php if ($this->session->userdata('logged_in')): ?>
+  <a href="/logout">Logout</a>
+ <?php endif; ?>
+
   <div id="footer">
-   Copyright &copy; 2010, Dan Parks. All Rights Reserved.
+   Copyright &copy; 2010, <a href="http://www.eastofcleveland.com">Dan Parks</a>. All Rights Reserved.
   </div>
 
  </div>
