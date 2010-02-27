@@ -30,5 +30,17 @@ class Metrics extends MY_Controller
       $this->redirectWithMessage('Revenues saved.', '/dashboard');
     }
   }
+
+  function revgraph($height) {
+    $this->load->library('bargraph');
+
+    $data = $this->Metric->getRevenueReport($this->session->userdata('userid'));
+    $revs = array();
+    foreach ($data as $r) {
+      $revs[] = $r->revenue;
+    }
+    $this->bargraph->setData($revs);
+    $this->bargraph->render((int) $height);
+  }
 }
 

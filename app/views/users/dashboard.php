@@ -5,8 +5,8 @@
  </tr>
  <tr>
   <td width="50%">
-   <img src="/res/wireframes-rev-contribMargin.png" alt="Contribution Margin"/>
-   <br/>
+   <img src="/res/wireframes-rev-contribMargin.png" alt="Contribution Margin"/><br/>
+   <img src="/metrics/revgraph/16" alt="revenue"/><br/>
    <table class="report">
     <tr><th>Month</th><th>Revenue Amt.</th><th>Contrib. Margin</th><th>Net Op. Income</th></tr>
    <?php foreach ($revenues as $r): ?>
