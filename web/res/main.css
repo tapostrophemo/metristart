@@ -4,7 +4,8 @@
  * #content - unique content per-page; may be subdivided into columns
  * #header/#footer - self-explanatory
  *
- * Garamond/serif, bold, large sizes (16-28px) - headings
+ * Garamond/serif, bold, large sizes (16-28px) - major headings
+ * Arial/sans-serif, extra bold, medium/large sizes (12-18px) - minor headings
  * Arial/sans-serif, normal, medium sizes (10-12px) - body text
  *
  * #FFFFFF - white - page background
@@ -102,11 +103,11 @@ p {
 
 h1, h2 {
   color: #353220;
-  font-family: Garamond, serif;
   font-weight: bold;
 }
 h1 {
   border-bottom: 1px solid #D9D4AE;
+  font-family: Garamond, serif;
   font-size: 28px;
 }
 h1 a {
@@ -114,6 +115,7 @@ h1 a {
   text-decoration: none;
 }
 h2 {
+  font-family: "Arial Bold", sans-serif;
   font-size: 18px;
 }
 

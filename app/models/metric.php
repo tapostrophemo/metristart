@@ -140,5 +140,38 @@ class Metric extends Model
       ORDER BY Str_To_Date(u.segment, '%m/%Y')";
     return $this->db->query($sql, $userid)->result();
   }
+
+  function saveAcquisitionPaidCost($userid, $month, $number) {
+    $data = array('user_id' => $userid, 'name' => 'acqPaidCost', 'segment' => $month, 'data' => $number);
+    $this->db->insert('metrics', $data);
+  }
+
+  function saveAcquisitionNetCost($userid, $month, $number) {
+    $data = array('user_id' => $userid, 'name' => 'acqNetCost', 'segment' => $month, 'data' => $number);
+    $this->db->insert('metrics', $data);
+  }
+
+  function saveAdExpenses($userid, $month, $number) {
+    $data = array('user_id' => $userid, 'name' => 'ads', 'segment' => $month, 'data' => $number);
+    $this->db->insert('metrics', $data);
+  }
+
+  function saveViralRatio($userid, $month, $number) {
+    $data = array('user_id' => $userid, 'name' => 'viratio', 'segment' => $month, 'data' => $number);
+    $this->db->insert('metrics', $data);
+  }
+
+  function getAcquisitionCostsReport($userid) {
+    $sql = "
+      SELECT p.segment AS month, p.data AS paidCost, n.data AS netCost, a.data AS ads, v.data AS viratio
+      FROM metrics p
+        JOIN metrics n ON n.segment = p.segment AND n.name = 'acqNetCost'
+        JOIN metrics a ON a.segment = p.segment AND a.name = 'ads'
+        JOIN metrics v ON v.segment = p.segment AND v.name = 'viratio'
+      WHERE p.user_id = ?
+      AND p.name = 'acqPaidCost'
+      ORDER BY Str_To_Date(p.segment, '%m/%Y')";
+    return $this->db->query($sql, $userid)->result();
+  }
 }
 

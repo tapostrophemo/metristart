@@ -24,7 +24,6 @@
   </div>
 
  <?php if ($this->session->userdata('logged_in')): ?>
-  <a href="/pages/wireframes">See what we're up to!</a> |
   <a href="/dashboard">Dashboard</a> |
   <a href="/logout">Logout</a>
  <?php endif; ?>

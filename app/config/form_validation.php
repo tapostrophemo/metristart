@@ -43,6 +43,14 @@ $config = array(
     array('field' => 'uniques', 'label' => 'uniques', 'rules' => 'trim|required|integer'),
     array('field' => 'views', 'label' => 'page views', 'rules' => 'trim|required|integer'),
     array('field' => 'visits', 'label' => 'total visits', 'rules' => 'trim|required|integer')
+  ),
+
+  'metrics_acquisition' => array(
+    array('field' => 'segment', 'label' => 'month', 'rules' => 'trim|required|mm_yyyy'),
+    array('field' => 'acqPaidCost', 'label' => 'paid cost/acquisition', 'rules' => 'trim|required|integer'),
+    array('field' => 'acqNetCost', 'label' => 'net cost/acquisition', 'rules' => 'trim|required|integer'),
+    array('field' => 'ads', 'label' => 'advertising', 'rules' => 'trim|required|integer'),
+    array('field' => 'viratio', 'label' => 'viral ratio', 'rules' => 'trim|required|number'),
   )
 );
 

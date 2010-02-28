@@ -180,5 +180,40 @@ class Metrics extends MY_Controller
     $data = array('metrics' => $this->Metric->getWebMetricsReport($this->session->userdata('userid')));
     $this->load->view('pageTemplate', array('content' => $this->load->view('metrics/web', $data, true)));
   }
+
+  function acquisition() {
+    if (!$this->form_validation->run('metrics_acquisition')) {
+      $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/acquisition', null, true)));
+    }
+    else {
+      $userid = $this->session->userdata('userid');
+      $month = $this->input->post('segment');
+
+      $this->Metric->saveAcquisitionPaidCost($userid, $month, $this->input->post('acqPaidCost'));
+      $this->Metric->saveAcquisitionNetCost($userid, $month, $this->input->post('acqNetCost'));
+      $this->Metric->saveAdExpenses($userid, $month, $this->input->post('ads'));
+      $this->Metric->saveViralRatio($userid, $month, $this->input->post('viratio'));
+
+      $this->redirectWithMessage('Acquisition costs saved.', '/dashboard');
+    }
+  }
+
+  function acqgraph($height) {
+    $this->load->library('bargraph');
+
+    $data = $this->Metric->getAcquisitionCostsReport($this->session->userdata('userid'));
+    $metrics = array();
+    foreach ($data as $m) {
+      $metrics[] = $m->netCost; // TODO: similar to userbase, which metric is best for dashboard?
+    }
+
+    $this->bargraph->setData($metrics);
+    $this->bargraph->render((int) $height);
+  }
+
+  function acq() {
+    $data = array('metrics' => $this->Metric->getAcquisitionCostsReport($this->session->userdata('userid')));
+    $this->load->view('pageTemplate', array('content' => $this->load->view('metrics/acquisition', $data, true)));
+  }
 }
 
