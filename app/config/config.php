@@ -20,7 +20,7 @@ $config['index_page'] = ''; // TODO: configure for PROD deploy
 | 'ORIG_PATH_INFO'	Uses the ORIG_PATH_INFO
 |
 */
-$config['uri_protocol']	= "AUTO";
+$config['uri_protocol']	= "AUTO"; // TODO: configure for PROD deploy
 
 /*
 |--------------------------------------------------------------------------
@@ -127,7 +127,7 @@ $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
 | use segment based URLs.
 |
 */
-$config['enable_query_strings'] = FALSE;
+$config['enable_query_strings'] = FALSE; // TODO: configure for PROD deploy
 $config['controller_trigger'] 	= 'c';
 $config['function_trigger'] 	= 'm';
 $config['directory_trigger'] 	= 'd'; // experimental not currently in use
@@ -152,7 +152,7 @@ $config['directory_trigger'] 	= 'd'; // experimental not currently in use
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 0;
+$config['log_threshold'] = 0; // TODO: configure for PROD deploy
 
 /*
 |--------------------------------------------------------------------------
@@ -163,7 +163,7 @@ $config['log_threshold'] = 0;
 | system/logs/ folder.  Use a full server path with trailing slash.
 |
 */
-$config['log_path'] = '';
+$config['log_path'] = ''; // TODO: configure for PROD deploy
 
 /*
 |--------------------------------------------------------------------------
@@ -185,7 +185,7 @@ $config['log_date_format'] = 'Y-m-d H:i:s';
 | system/cache/ folder.  Use a full server path with trailing slash.
 |
 */
-$config['cache_path'] = '';
+$config['cache_path'] = ''; // TODO: configure for PROD deploy
 
 /*
 |--------------------------------------------------------------------------
@@ -196,7 +196,7 @@ $config['cache_path'] = '';
 | enabled you MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = "";
+$config['encryption_key'] = ""; // TODO: configure for PROD deploy
 
 /*
 |--------------------------------------------------------------------------
@@ -211,8 +211,8 @@ $config['encryption_key'] = "";
 |
 */
 $config['sess_cookie_name']		= 'ci_session';
-$config['sess_expiration']		= 7200;
-$config['sess_encrypt_cookie']	= FALSE;
+$config['sess_expiration']		= 7200; // TODO: configure for PROD deploy
+$config['sess_encrypt_cookie']	= FALSE; // TODO: configure for PROD deploy
 $config['sess_use_database']	= FALSE;
 $config['sess_table_name']		= 'ci_sessions';
 $config['sess_match_ip']		= FALSE;

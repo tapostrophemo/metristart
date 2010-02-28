@@ -1,3 +1,5 @@
+# TODO: configure for PROD deploy
+
 RewriteEngine on
 
 RewriteCond $1 !^(index\.php|favicon\.ico|res)
