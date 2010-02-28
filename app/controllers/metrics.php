@@ -48,7 +48,7 @@ class Metrics extends MY_Controller
 
     if (!$this->form_validation->run('metrics_cash')) {
       $data = array('cash' => $this->Metric->getCash($userid));
-      if (count($data) == 1) {
+      if (count($data['cash']) == 1) {
         $initialInfusion = $data['cash']->data;
         $data['burn'] = $this->Metric->getBurn($userid);
       }

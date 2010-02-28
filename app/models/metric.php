@@ -63,10 +63,12 @@ class Metric extends Model
       ORDER BY month";
     $results = $this->db->query($sql, array($userid, $userid))->result();
 
-    $remaining = $results[0]->cash;
-    foreach ($results as $r) {
-      $remaining -= $r->expenses;
-      $r->cash = $remaining;
+    if (count($results) > 0) {
+      $remaining = $results[0]->cash;
+      foreach ($results as $r) {
+        $remaining -= $r->expenses;
+        $r->cash = $remaining;
+      }
     }
 
     return $results;
