@@ -1,46 +1,6 @@
 <p>The following is a sample of what the "dashboard" page might look like:</p>
 
 <table border="0" width="100%" cellpadding="0" cellspacing="0">
- <tr>
-  <th>Financials</th>
-  <th>Cash</th>
- </tr>
- <tr>
-  <td width="50%">
-   <img src="/res/wireframes-rev-contribMargin.png" alt="Contribution Margin"/>
-   <br/>
-   <table class="report">
-    <tr><th>Month</th><th>Revenue Amt.</th><th>Contrib. Margin</th></tr>
-    <tr><td>09/2009</td><td>$586</td><td>$352</td></tr>
-    <tr><td>10/2009</td><td>$1,250</td><td>$750</td></tr>
-    <tr><td>11/2009</td><td>$997</td><td>$598</td></tr>
-    <tr><td>12/2009</td><td>$1,145</td><td>$687</td></tr>
-    <tr><td>01/2010</td><td>$876</td><td>$526</td></tr>
-    <tr><td>02/2010</td><td>$1,001</td><td>$601</td></tr>
-   </table>
-  </td>
-  <td>
-   <img src="/res/wireframes-burnRate.png" alt="Burn Rate"/>
-  </td>
- </tr>
-
- <tr>
-  <th colspan="2">User Base</th>
- </tr>
- <tr>
-  <td colspan="2"><pre class="rounded">
-    * Registrations (Customers who completed the registration process during the month)
-    * Activations (Customers who had activity 3 to 10 days after they registered. Measures
-      only customers that registered during that month)
-    * Activation/Registrations %
-    * Retained 30+ Days
-    * Retained 30+/ Total Actives %
-    * Retained 90+ Days
-    * Retained 90+/Total Actives %
-    * Paying Customers (How many customers made $ purchases that month)
-    * Paying/(Activations + Retained 30+)</pre>
-  </td>
- </tr>
 
  <tr>
   <th>Customer Acquisition</th>

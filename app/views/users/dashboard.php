@@ -7,8 +7,13 @@
   <th>Burnrate</th>
   <td class="toc"><a href="/metrics/burnrate"><img src="/metrics/burngraph/16" border="0" alt=""/></a></td>
  </tr>
+ <tr>
+  <th>User Base</th>
+  <td class="toc"><a href="/metrics/ub"><img src="/metrics/userbasegraph/16" border="0" alt=""/></a></td>
+ </tr>
 </table>
 
 <a href="/revenue">Enter Revenues</a> |
-<a href="/expense">Enter Expenses</a>
+<a href="/expense">Enter Expenses</a> |
+<a href="/userbase">Enter User Base Info</a>
 

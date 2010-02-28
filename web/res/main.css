@@ -34,7 +34,7 @@ p {
   margin: 0;
 }
 
-td {
+td, th {
   vertical-align: top;
 }
 
@@ -82,7 +82,7 @@ a {
   font-weight: bold;
 }
 
-label {
+label, dt {
   font-weight: bold;
 }
 

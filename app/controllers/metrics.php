@@ -96,5 +96,55 @@ class Metrics extends MY_Controller
     $data = array('expenses' => $this->Metric->getBurnReport($this->session->userdata('userid')));
     $this->load->view('pageTemplate', array('content' => $this->load->view('metrics/burnrate', $data, true)));
   }
+
+  function userbase() {
+    if (!$this->form_validation->run('metrics_userbase')) {
+      $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/userbase', null, true)));
+    }
+    else {
+      $userid = $this->session->userdata('userid');
+      $month = $this->input->post('segment');
+
+      $this->Metric->saveRegistrations($userid, $month, $this->input->post('registrations'));
+      $this->Metric->saveActivations($userid, $month, $this->input->post('activations'));
+      $this->Metric->saveRetentions30($userid, $month, $this->input->post('retentions30'));
+      $this->Metric->saveRetentions90($userid, $month, $this->input->post('retentions90'));
+      $this->Metric->savePayingCustomers($userid, $month, $this->input->post('paying'));
+
+      $this->redirectWithMessage('Userbase data saved.', '/dashboard');
+    }
+  }
+
+  function userbasegraph($height) {
+    $this->load->library('bargraph');
+
+    $data = $this->Metric->getUserbaseReport($this->session->userdata('userid'));
+    $ub = array();
+    foreach ($data as $r) {
+      $ub[] = $r->registrations;
+    }
+/*
+    foreach ($data as $a) {
+      $ub[] = -1*$a->activations;
+    }
+    foreach ($data as $r30) {
+      $ub[] = $r30->retentions30;
+    }
+    foreach ($data as $r90) {
+      $ub[] = -1*$r90->retentions90;
+    }
+    foreach ($data as $p) {
+      $ub[] = $p->payingCustomers;
+    }
+*/
+
+    $this->bargraph->setData($ub);
+    $this->bargraph->render((int) $height);
+  }
+
+  function ub() {
+    $data = array('userbase' => $this->Metric->getUserbaseReport($this->session->userdata('userid')));
+    $this->load->view('pageTemplate', array('content' => $this->load->view('metrics/userbase', $data, true)));
+  }
 }
 

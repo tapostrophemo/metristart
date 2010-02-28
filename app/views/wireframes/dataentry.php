@@ -1,59 +1,5 @@
 <hr/>
 
-<h2>Enter User Base Data</h2>
-
-<table class="entryForm rounded">
- <tr>
-  <td><label>Month</label></td>
-  <td><input type="text" size="6"/></td>
- </tr>
- <tr>
-  <td><label>Registrations</label></td>
-  <td><input type="text" size="8"/></td>
- </tr>
- <tr>
-  <td><label>Activations</label></td>
-  <td><input type="text" size="8"/></td>
- </tr>
- <tr>
-  <td><label>Activation/Registration %</label></td>
-  <td>X% <small>(on-screen calculation)</small></td>
- </tr>
- <tr>
-  <td><label>30-Day Retentions</label></td>
-  <td><input type="text" size="8"/></td>
- </tr>
- <tr>
-  <td><label>30-Day Retention/Activity %</label></td>
-  <td>X% <small>(on-screen calculation)</small></td>
- </tr>
- <tr>
-  <td><label>90-Day Retentions</label></td>
-  <td><input type="text" size="8"/></td>
- </tr>
- <tr>
-  <td><label>90-Day Retention/Activity %</label></td>
-  <td>X% <small>(on-screen calculation)</small></td>
- </tr>
- <tr>
-  <td><label>Paying Customers</label></td>
-  <td><input type="text" size="8"/></td>
- </tr>
- <tr>
-  <td><label>Num Paying / <br/>(Activations + 30-Day Retained)</label></td>
-  <td>X % <small>(on-screen calculation)</small></td>
- </tr>
- <tr>
-  <td></td>
-  <td>
-   <input type="submit" value="Save"/>
-   <input type="button" value="Cancel"/>
-  </td>
- </tr>
-</table>
-
-<hr/>
-
 <h2>Enter Acquisition Costs</h2>
 
 <table class="entryForm rounded">
