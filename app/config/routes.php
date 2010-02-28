@@ -10,6 +10,6 @@ $route['logout'] = 'site/logout';
 $route['dashboard'] = 'users/dashboard';
 
 $route['revenue'] = 'metrics/revenue';
-$route['cash'] = 'metrics/cash';
+$route['expense'] = 'metrics/expense';
 $route['infusion'] = 'metrics/infusion';
 

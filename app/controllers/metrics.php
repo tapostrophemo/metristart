@@ -43,15 +43,20 @@ class Metrics extends MY_Controller
     $this->bargraph->render((int) $height);
   }
 
-  function cash() {
+  function revenues() {
+    $data = array('revenues' => $this->Metric->getRevenueReport($this->session->userdata('userid')));
+    $this->load->view('pageTemplate', array('content' => $this->load->view('metrics/revenues', $data, true)));
+  }
+
+  function expense() {
     $userid = $this->session->userdata('userid');
 
-    if (!$this->form_validation->run('metrics_cash')) {
+    if (!$this->form_validation->run('metrics_expense')) {
       $data = array('cash' => $this->Metric->getCash($userid));
       if (count($data['cash']) == 1) {
         $data['burn'] = $this->Metric->getBurn($userid);
       }
-      $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/cash.php', $data, true)));
+      $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/expense.php', $data, true)));
     }
     else {
       $this->Metric->saveExpenses(
@@ -85,6 +90,11 @@ class Metrics extends MY_Controller
     }
     $this->bargraph->setData($exps);
     $this->bargraph->render((int) $height);
+  }
+
+  function burnrate() {
+    $data = array('expenses' => $this->Metric->getBurnReport($this->session->userdata('userid')));
+    $this->load->view('pageTemplate', array('content' => $this->load->view('metrics/burnrate', $data, true)));
   }
 }
 

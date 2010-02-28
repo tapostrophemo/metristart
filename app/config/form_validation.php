@@ -20,7 +20,7 @@ $config = array(
     array('field' => 'fixcost', 'label' => 'total fixed costs', 'rules' => 'trim|integer')
   ),
 
-  'metrics_cash' => array(
+  'metrics_expense' => array(
     array('field' => 'segment', 'label' => 'month', 'rules' => 'trim|required|mm_yyyy'),
     array('field' => 'expenses', 'label' => 'total expenses', 'rules' => 'trim|required|integer')
   ),

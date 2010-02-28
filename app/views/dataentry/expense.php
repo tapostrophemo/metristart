@@ -17,7 +17,7 @@
 
 <?=validation_errors()?>
 
-<?=form_open('cash')?>
+<?=form_open('expense')?>
 <table class="entryForm rounded">
  <tr>
   <td><label>Month</label></td>
