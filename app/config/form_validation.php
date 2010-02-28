@@ -13,6 +13,12 @@ $config = array(
     array('field' => 'user', 'label' => 'user', 'rules' => 'callback__is_registered_user')
   ),
 
+  'users_account' => array(
+    array('field' => 'email', 'label' => 'email', 'rules' => 'trim|required|max_length[255]|valid_email|xss_clean'),
+    array('field' => 'password', 'label' => 'password', 'rules' => 'trim'),
+    array('field' => 'passconf', 'label' => 'password confirmation', 'rules' => 'trim|matches[password]')
+  ),
+
   'metrics_revenue' => array(
     array('field' => 'segment', 'label' => 'month', 'rules' => 'trim|required|mm_yyyy'),
     array('field' => 'revenue', 'label' => 'total revenue', 'rules' => 'trim|required|integer'),

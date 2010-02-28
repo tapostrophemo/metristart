@@ -64,6 +64,7 @@ body {
 #footer {
   border-top: 1px solid #D9D4AE;
   font-size: 10px;
+  margin-top: 2em;
   text-align: right;
 }
 #footer a {

@@ -8,6 +8,7 @@ $route['login'] = 'site/login';
 $route['logout'] = 'site/logout';
 
 $route['dashboard'] = 'users/dashboard';
+$route['account'] = 'users/account';
 
 $route['revenue'] = 'metrics/revenue';
 $route['expense'] = 'metrics/expense';

@@ -25,7 +25,11 @@
 
  <?php if ($this->session->userdata('logged_in')): ?>
   <a href="/dashboard">Dashboard</a> |
+  <a href="/account">Account</a> |
   <a href="/logout">Logout</a>
+ <?php else: ?>
+  <a href="/register">Register</a> |
+  <a href="/login">Login</a>
  <?php endif; ?>
 
   <div id="footer">

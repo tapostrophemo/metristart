@@ -62,7 +62,8 @@ class User extends Model
   }
 
   function findById($id) {
-    $query = $this->db->select('id, username, email')->where('id', $id)->get('users');
+    $columns = 'id, username, email, registered_at, current_login_at, last_login_at, updated_at';
+    $query = $this->db->select($columns)->where('id', $id)->get('users');
     if ($query->num_rows == 1) {
       $result = $query->result();
       return $result[0];
@@ -70,6 +71,18 @@ class User extends Model
     else {
       return null;
     }
+  }
+
+  function update($userid, $email, $password = null) {
+    $this->load->helper('date');
+    $data = array('email' => $email, 'updated_at' => mdate('%Y-%m-%d %H:%i:%s', time()));
+    if ($password != null) {
+      $this->load->plugin('salt');
+      $salt = salt();
+      $data['salt'] = $salt;
+      $data['password'] = sha1("$password$salt");
+    }
+    $this->db->where('id', $userid)->set($data)->update('users');
   }
 }
 
