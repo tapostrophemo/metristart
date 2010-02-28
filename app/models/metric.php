@@ -23,10 +23,12 @@ class Metric extends Model
              r.data - vc.data AS contribution_margin,
              r.data - vc.data - Coalesce(fc.data, 0) AS net_operating_income
       FROM metrics r
-        JOIN metrics vc ON vc.user_id = r.user_id AND vc.segment = r.segment AND vc.name = 'varcost'
-        LEFT JOIN metrics fc ON fc.user_id = r.user_id AND fc.segment = r.segment AND fc.name = 'fixcost'
+        JOIN metrics vc ON vc.user_id = r.user_id AND vc.segment = r.segment
+        LEFT JOIN metrics fc ON fc.user_id = r.user_id AND fc.segment = r.segment
       WHERE r.user_id = ?
       AND r.name = 'revenue'
+      AND vc.name = 'varcost'
+      AND fc.name = 'fixcost'
       ORDER BY Str_To_Date(r.segment, '%m/%Y')";
     return $this->db->query($sql, $userid)->result();
   }
@@ -104,12 +106,16 @@ class Metric extends Model
       SELECT r.segment AS month, r.data AS registrations, a.data AS activations, r30.data AS retentions30,
              r90.data AS retentions90, p.data AS payingCustomers
       FROM metrics r
-        JOIN metrics a ON a.segment = r.segment AND a.name = 'activations'
-        JOIN metrics r30 ON r30.segment = r.segment AND r30.name = 'retentions30'
-        JOIN metrics r90 ON r90.segment = r.segment AND r90.name = 'retentions90'
-        JOIN metrics p ON p.segment = r.segment AND p.name = 'payingCustomers'
+        JOIN metrics a ON a.user_id = r.user_id AND a.segment = r.segment
+        JOIN metrics r30 ON r30.user_id = r.user_id AND r30.segment = r.segment
+        JOIN metrics r90 ON r90.user_id = r.user_id AND r90.segment = r.segment
+        JOIN metrics p ON p.user_id = r.user_id AND p.segment = r.segment
       WHERE r.user_id = ?
       AND r.name = 'registrations'
+      AND a.name = 'activations'
+      AND r30.name = 'retentions30'
+      AND r90.name = 'retentions90'
+      AND p.name = 'payingCustomers'
       ORDER BY Str_To_Date(r.segment, '%m/%Y')";
     return $this->db->query($sql, $userid)->result();
   }
@@ -133,10 +139,12 @@ class Metric extends Model
     $sql = "
       SELECT u.segment AS month, u.data AS uniques, p.data AS pageViews, v.data AS visits
       FROM metrics u
-        JOIN metrics p ON p.segment = u.segment AND p.name = 'pageViews'
-        JOIN metrics v ON v.segment = u.segment AND v.name = 'visits'
+        JOIN metrics p ON p.user_id = u.user_id AND p.segment = u.segment
+        JOIN metrics v ON v.user_id = u.user_id AND v.segment = u.segment
       WHERE u.user_id = ?
       AND u.name = 'uniques'
+      AND p.name = 'pageViews'
+      AND v.name = 'visits'
       ORDER BY Str_To_Date(u.segment, '%m/%Y')";
     return $this->db->query($sql, $userid)->result();
   }
@@ -165,11 +173,14 @@ class Metric extends Model
     $sql = "
       SELECT p.segment AS month, p.data AS paidCost, n.data AS netCost, a.data AS ads, v.data AS viratio
       FROM metrics p
-        JOIN metrics n ON n.segment = p.segment AND n.name = 'acqNetCost'
-        JOIN metrics a ON a.segment = p.segment AND a.name = 'ads'
-        JOIN metrics v ON v.segment = p.segment AND v.name = 'viratio'
+        JOIN metrics n ON n.user_id = p.user_id AND n.segment = p.segment
+        JOIN metrics a ON a.user_id = p.user_id AND a.segment = p.segment
+        JOIN metrics v ON v.user_id = p.user_id AND v.segment = p.segment
       WHERE p.user_id = ?
       AND p.name = 'acqPaidCost'
+      AND n.name = 'acqNetCost'
+      AND a.name = 'ads'
+      AND v.name = 'viratio'
       ORDER BY Str_To_Date(p.segment, '%m/%Y')";
     return $this->db->query($sql, $userid)->result();
   }
