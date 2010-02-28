@@ -11,9 +11,14 @@
   <th>User Base</th>
   <td class="toc"><a href="/metrics/ub"><img src="/metrics/userbasegraph/16" border="0" alt=""/></a></td>
  </tr>
+ <tr>
+  <th>Web Metrics</th>
+  <td class="toc"><a href="/metrics/wb"><img src="/metrics/webgraph/16" border="0" alt=""/></a></td>
+ </tr>
 </table>
 
 <a href="/revenue">Enter Revenues</a> |
 <a href="/expense">Enter Expenses</a> |
-<a href="/userbase">Enter User Base Info</a>
+<a href="/userbase">Enter User Base Info</a> |
+<a href="/web">Enter Web Metrics</a>
 

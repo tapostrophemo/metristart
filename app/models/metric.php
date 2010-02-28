@@ -113,5 +113,32 @@ class Metric extends Model
       ORDER BY Str_To_Date(r.segment, '%m/%Y')";
     return $this->db->query($sql, $userid)->result();
   }
+
+  function saveUniques($userid, $month, $number) {
+    $data = array('user_id' => $userid, 'name' => 'uniques', 'segment' => $month, 'data' => $number);
+    $this->db->insert('metrics', $data);
+  }
+
+  function savePageViews($userid, $month, $number) {
+    $data = array('user_id' => $userid, 'name' => 'pageViews', 'segment' => $month, 'data' => $number);
+    $this->db->insert('metrics', $data);
+  }
+
+  function saveVisits($userid, $month, $number) {
+    $data = array('user_id' => $userid, 'name' => 'visits', 'segment' => $month, 'data' => $number);
+    $this->db->insert('metrics', $data);
+  }
+
+  function getWebMetricsReport($userid) {
+    $sql = "
+      SELECT u.segment AS month, u.data AS uniques, p.data AS pageViews, v.data AS visits
+      FROM metrics u
+        JOIN metrics p ON p.segment = u.segment AND p.name = 'pageViews'
+        JOIN metrics v ON v.segment = u.segment AND v.name = 'visits'
+      WHERE u.user_id = ?
+      AND u.name = 'uniques'
+      ORDER BY Str_To_Date(u.segment, '%m/%Y')";
+    return $this->db->query($sql, $userid)->result();
+  }
 }
 

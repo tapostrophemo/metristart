@@ -123,7 +123,7 @@ class Metrics extends MY_Controller
     foreach ($data as $r) {
       $ub[] = $r->registrations;
     }
-/*
+/* TODO: determine which metric (or combination thereof) best represents userbase data
     foreach ($data as $a) {
       $ub[] = -1*$a->activations;
     }
@@ -145,6 +145,40 @@ class Metrics extends MY_Controller
   function ub() {
     $data = array('userbase' => $this->Metric->getUserbaseReport($this->session->userdata('userid')));
     $this->load->view('pageTemplate', array('content' => $this->load->view('metrics/userbase', $data, true)));
+  }
+
+  function web() {
+    if (!$this->form_validation->run('metrics_web')) {
+      $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/web', null, true)));
+    }
+    else {
+      $userid = $this->session->userdata('userid');
+      $month = $this->input->post('segment');
+
+      $this->Metric->saveUniques($userid, $month, $this->input->post('uniques'));
+      $this->Metric->savePageViews($userid, $month, $this->input->post('views'));
+      $this->Metric->saveVisits($userid, $month, $this->input->post('visits'));
+
+      $this->redirectWithMessage('Web metrics saved.', '/dashboard');
+    }
+  }
+
+  function webgraph($height) {
+    $this->load->library('bargraph');
+
+    $data = $this->Metric->getWebMetricsReport($this->session->userdata('userid'));
+    $wm = array();
+    foreach ($data as $w) {
+      $wm[] = $w->pageViews; // TODO: similar to userbase, which metric is best for dashboard? uniques? visits?
+    }
+
+    $this->bargraph->setData($wm);
+    $this->bargraph->render((int) $height);
+  }
+
+  function wb() {
+    $data = array('metrics' => $this->Metric->getWebMetricsReport($this->session->userdata('userid')));
+    $this->load->view('pageTemplate', array('content' => $this->load->view('metrics/web', $data, true)));
   }
 }
 

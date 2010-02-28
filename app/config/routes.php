@@ -13,4 +13,5 @@ $route['revenue'] = 'metrics/revenue';
 $route['expense'] = 'metrics/expense';
 $route['infusion'] = 'metrics/infusion';
 $route['userbase'] = 'metrics/userbase';
+$route['web'] = 'metrics/web';
 
