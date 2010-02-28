@@ -1,3 +1,5 @@
+<h2>Dashboard</h2>
+
 <table border="0" cellspacing="0" cellpadding="0">
  <tr>
   <th>Revenues</th>
@@ -23,7 +25,7 @@
 
 <a href="/revenue">Enter Revenues</a> |
 <a href="/expense">Enter Expenses</a> |
-<a href="/userbase">Enter User Base Info</a> |
+<a href="/userbase">Enter User Base Metrics</a> |
 <a href="/web">Enter Web Metrics</a> |
-<a href="/acquisition">Enter Acquisition Info</a>
+<a href="/acquisition">Enter Acquisition Metrics</a>
 

@@ -13,7 +13,7 @@
 
 <?php else: ?>
 
-<h2>Enter Cash</h2>
+<h2>Enter Expenses</h2>
 
 <?=validation_errors()?>
 

@@ -1,4 +1,4 @@
-<h2>Enter Customer Acquisition Costs</h2>
+<h2>Enter Customer Acquisition Metrics</h2>
 
 <?=validation_errors()?>
 
@@ -34,4 +34,6 @@
 </table>
 </table>
 </form>
+
+<?php $this->load->view('metrics/acquisitionDefinitions'); ?>
 

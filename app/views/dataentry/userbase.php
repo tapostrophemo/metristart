@@ -1,4 +1,4 @@
-<h2>Enter User Base Data</h2>
+<h2>Enter User Base Metrics</h2>
 
 <?=validation_errors()?>
 
@@ -53,4 +53,6 @@
  </tr>
 </table>
 </form>
+
+<?php $this->load->view('metrics/userbaseDefinitions'); ?>
 

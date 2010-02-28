@@ -1,3 +1,5 @@
+<h2>Web Metrics</h2>
+
 <table class="report">
  <tr><th>Month</th><th>Uniq. Visitors</th><th>Tot. Page Views</th><th>Tot. Visits</th><th>Page Views/Visit</th></tr>
 <?php foreach ($metrics as $m): ?>
