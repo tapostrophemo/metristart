@@ -30,5 +30,46 @@ class Metric extends Model
       ORDER BY r.segment";
     return $this->db->query($sql, $userid)->result();
   }
+
+  function getCash($userid) {
+    $sql = "SELECT * FROM metrics WHERE user_id = ? AND name = 'cash'";
+    return $this->db->query($sql, $userid)->row(0);
+  }
+
+  function getBurn($userid) {
+    $sql = "
+      SELECT Sum(data) AS burn, Max(segment) AS month
+      FROM metrics
+      WHERE user_id = ?
+      AND name = 'expenses'";
+    return $this->db->query($sql, $userid)->row(0);
+  }
+
+  function saveCash($userid, $amount) {
+    $data = array('user_id' => $userid, 'name' => 'cash', 'data' => $amount);
+    $this->db->insert('metrics', $data);
+  }
+
+  function saveExpenses($userid, $month, $amount) {
+    $data = array('user_id' => $userid, 'name' => 'expenses', 'segment' => $month, 'data' => $amount);
+    $this->db->insert('metrics', $data);
+  }
+
+  function getBurnReport($userid) {
+    $sql = "
+      SELECT null AS month, 0 AS expenses, data AS cash FROM metrics WHERE user_id = ? AND name = 'cash'
+      UNION ALL
+      SELECT segment AS month, data AS expenses, 0 AS cash FROM metrics WHERE user_id = ? AND name = 'expenses'
+      ORDER BY month";
+    $results = $this->db->query($sql, array($userid, $userid))->result();
+
+    $remaining = $results[0]->cash;
+    foreach ($results as $r) {
+      $remaining -= $r->expenses;
+      $r->cash = $remaining;
+    }
+
+    return $results;
+  }
 }
 

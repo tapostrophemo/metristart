@@ -7,14 +7,17 @@ class Users extends MY_Controller
     $this->load->model('User');
     $this->load->model('Metric');
     log_message('debug', 'Users class initialized');
-  }
 
-  function dashboard() {
     if (!$this->User->findById($this->session->userdata('userid'))) {
       $this->redirectWithError('Must be logged in.', '/login');
     }
+  }
 
-    $data = array('revenues' => $this->Metric->getRevenueReport($this->session->userdata('userid')));
+  function dashboard() {
+    $userid = $this->session->userdata('userid');
+    $data = array(
+      'revenues' => $this->Metric->getRevenueReport($userid),
+      'expenses' => $this->Metric->getBurnReport($userid));
 
     $this->load->view('pageTemplate', array('content' => $this->load->view('users/dashboard', $data, true)));
   }

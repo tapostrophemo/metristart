@@ -18,6 +18,15 @@ $config = array(
     array('field' => 'revenue', 'label' => 'total revenue', 'rules' => 'trim|required|integer'),
     array('field' => 'varcost', 'label' => 'total variable costs', 'rules' => 'trim|required|integer'),
     array('field' => 'fixcost', 'label' => 'total fixed costs', 'rules' => 'trim|integer')
+  ),
+
+  'metrics_cash' => array(
+    array('field' => 'segment', 'label' => 'month', 'rules' => 'trim|required|mm_yyyy'),
+    array('field' => 'expenses', 'label' => 'total expenses', 'rules' => 'trim|required|integer')
+  ),
+
+  'metrics_infusion' => array(
+    array('field' => 'amount', 'label' => 'amount', 'rules' => 'trim|required|integer')
   )
 );
 

@@ -42,5 +42,50 @@ class Metrics extends MY_Controller
     $this->bargraph->setData($revs);
     $this->bargraph->render((int) $height);
   }
+
+  function cash() {
+    $userid = $this->session->userdata('userid');
+
+    if (!$this->form_validation->run('metrics_cash')) {
+      $data = array('cash' => $this->Metric->getCash($userid));
+      if (count($data) == 1) {
+        $initialInfusion = $data['cash']->data;
+        $data['burn'] = $this->Metric->getBurn($userid);
+      }
+      $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/cash.php', $data, true)));
+    }
+    else {
+      $this->Metric->saveExpenses(
+        $this->session->userdata('userid'),
+        $this->input->post('segment'),
+        $this->input->post('expenses'));
+      $this->redirectWithMessage('Expenses saved.', '/dashboard');
+    }
+  }
+
+  function infusion() {
+    $userid = $this->session->userdata('userid');
+
+    if (!$this->form_validation->run('metrics_infusion')) {
+      $data = array('cash' => $this->Metric->getCash($userid));
+      $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/cash.php', $data, true)));
+    }
+    else {
+      $this->Metric->saveCash($userid, $this->input->post('amount'));
+      $this->redirectWithMessage('Initial cash infusion saved.', '/dashboard');
+    }
+  }
+
+  function burngraph($height) {
+    $this->load->library('bargraph');
+
+    $data = $this->Metric->getBurnReport($this->session->userdata('userid'));
+    $exps = array();
+    foreach ($data as $e) {
+      $exps[] = $e->cash;
+    }
+    $this->bargraph->setData($exps);
+    $this->bargraph->render((int) $height);
+  }
 }
 

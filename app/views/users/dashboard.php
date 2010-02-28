@@ -5,7 +5,7 @@
  </tr>
  <tr>
   <td width="50%">
-   <img src="/res/wireframes-rev-contribMargin.png" alt="Contribution Margin"/><br/>
+   <!--img src="/res/wireframes-rev-contribMargin.png" alt="Contribution Margin"/><br/-->
    <img src="/metrics/revgraph/16" alt="revenue"/><br/>
    <table class="report">
     <tr><th>Month</th><th>Revenue Amt.</th><th>Contrib. Margin</th><th>Net Op. Income</th></tr>
@@ -20,11 +20,23 @@
    </table>
   </td>
   <td>
-   <img src="/res/wireframes-burnRate.png" alt="Burn Rate"/>
+   <!--img src="/res/wireframes-burnRate.png" alt="Burn Rate"/><br/-->
+   <img src="/metrics/burngraph/16" alt="expenses"/><br/>
+   <table class="report">
+    <tr><th>Month</th><th>Expenses</th><th>Cash Remaining</th></tr>
+   <?php foreach ($expenses as $e): ?>
+    <tr>
+     <td><?=$e->month?></td>
+     <td><?=$e->expenses?></td>
+     <td><?=$e->cash?></td>
+    </tr>
+   <?php endforeach; ?>
+   </table>
   </td>
  </tr>
 </table>
 
 <a href="/pages/wireframes">See what we're up to!</a> |
-<a href="/revenue">Enter Revenues</a>
+<a href="/revenue">Enter Revenues</a> |
+<a href="/cash">Enter Cash</a>
 
