@@ -145,7 +145,7 @@ class Metric extends Model
     return $this->db->query($sql, $userid)->result();
   }
 
-  function saveWeb($userid, $month, $uniques, $visits, $views) {
+  function saveWeb($userid, $month, $uniques, $views, $visits) {
     $this->db->trans_start();
 
     $this->saveUniques($userid, $month, $uniques);
