@@ -2,6 +2,19 @@
 
 class Metric extends Model
 {
+  function saveRevenues($userid, $month, $revenue, $variableCost, $fixedCost) {
+    $this->db->trans_start();
+
+    $this->saveRevenue($userid, $month, $revenue);
+    $this->saveVariableCost($userid, $month, $variableCost);
+    if ($fixedCost != null) {
+      $this->saveFixedCost($userid, $month, $fixedCost);
+     }
+
+    $this->db->trans_complete();
+    return $this->db->trans_status();
+  }
+
   function saveRevenue($userid, $month, $amount) {
     $data = array('user_id' => $userid, 'name' => 'revenue', 'segment' => $month, 'data' => $amount);
     $this->db->insert('metrics', $data);
@@ -24,11 +37,10 @@ class Metric extends Model
              r.data - vc.data - Coalesce(fc.data, 0) AS net_operating_income
       FROM metrics r
         JOIN metrics vc ON vc.user_id = r.user_id AND vc.segment = r.segment
-        LEFT JOIN metrics fc ON fc.user_id = r.user_id AND fc.segment = r.segment
+        LEFT JOIN metrics fc ON fc.user_id = r.user_id AND fc.segment = r.segment AND fc.name = 'fixcost'
       WHERE r.user_id = ?
       AND r.name = 'revenue'
       AND vc.name = 'varcost'
-      AND fc.name = 'fixcost'
       ORDER BY Str_To_Date(r.segment, '%m/%Y')";
     return $this->db->query($sql, $userid)->result();
   }
@@ -49,12 +61,12 @@ class Metric extends Model
 
   function saveCash($userid, $amount) {
     $data = array('user_id' => $userid, 'name' => 'cash', 'data' => $amount);
-    $this->db->insert('metrics', $data);
+    return $this->db->insert('metrics', $data);
   }
 
   function saveExpenses($userid, $month, $amount) {
     $data = array('user_id' => $userid, 'name' => 'expenses', 'segment' => $month, 'data' => $amount);
-    $this->db->insert('metrics', $data);
+    return $this->db->insert('metrics', $data);
   }
 
   function getBurnReport($userid) {
@@ -74,6 +86,19 @@ class Metric extends Model
     }
 
     return $results;
+  }
+
+  function saveUserbase($userid, $month, $registrations, $activations, $retentions30, $retentions90, $paying) {
+    $this->db->trans_start();
+
+    $this->saveRegistrations($userid, $month, $registrations);
+    $this->saveActivations($userid, $month, $activations);
+    $this->saveRetentions30($userid, $month, $retentions30);
+    $this->saveRetentions90($userid, $month, $retentions90);
+    $this->savePayingCustomers($userid, $month, $paying);
+
+    $this->db->trans_complete();
+    return $this->db->trans_status();
   }
 
   function saveRegistrations($userid, $month, $number) {
@@ -120,6 +145,17 @@ class Metric extends Model
     return $this->db->query($sql, $userid)->result();
   }
 
+  function saveWeb($userid, $month, $uniques, $visits, $views) {
+    $this->db->trans_start();
+
+    $this->saveUniques($userid, $month, $uniques);
+    $this->savePageViews($userid, $month, $views);
+    $this->saveVisits($userid, $month, $visits);
+
+    $this->db->trans_complete();
+    return $this->db->trans_status();
+  }
+
   function saveUniques($userid, $month, $number) {
     $data = array('user_id' => $userid, 'name' => 'uniques', 'segment' => $month, 'data' => $number);
     $this->db->insert('metrics', $data);
@@ -147,6 +183,18 @@ class Metric extends Model
       AND v.name = 'visits'
       ORDER BY Str_To_Date(u.segment, '%m/%Y')";
     return $this->db->query($sql, $userid)->result();
+  }
+
+  function saveAcquisitions($userid, $month, $paidCost, $netCost, $adCost, $viralRatio) {
+    $this->db->trans_start();
+
+    $this->saveAcquisitionPaidCost($userid, $month, $paidCost);
+    $this->saveAcquisitionNetCost($userid, $month, $netCost);
+    $this->saveAdExpenses($userid, $month, $adCost);
+    $this->saveViralRatio($userid, $month, $viralRatio);
+
+    $this->db->trans_complete();
+    return $this->db->trans_status();
   }
 
   function saveAcquisitionPaidCost($userid, $month, $number) {

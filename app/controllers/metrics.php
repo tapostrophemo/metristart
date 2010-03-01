@@ -18,16 +18,17 @@ class Metrics extends MY_Controller
       $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/revenue.php', null, true)));
     }
     else {
-      $userid = $this->session->userdata('userid');
-      $month = $this->input->post('segment');
-
-      $this->Metric->saveRevenue($userid, $month, $this->input->post('revenue'));
-      $this->Metric->saveVariableCost($userid, $month, $this->input->post('varcost'));
-      if ($this->input->post('fixcost')) {
-        $this->Metric->saveFixedCost($userid, $month, $this->input->post('fixcost'));
+      $status = $this->Metric->saveRevenues($this->session->userdata('userid'),
+        $this->input->post('segment'),
+        $this->input->post('revenue'),
+        $this->input->post('varcost'),
+        $this->input->post('fixcost'));
+      if ($status) {
+        $this->redirectWithMessage('Revenues saved.', '/dashboard');
       }
-
-      $this->redirectWithMessage('Revenues saved.', '/dashboard');
+      else {
+        $this->redirectWithError('Problem saving revenues.', '/dashboard');
+      }
     }
   }
 
@@ -59,11 +60,15 @@ class Metrics extends MY_Controller
       $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/expense.php', $data, true)));
     }
     else {
-      $this->Metric->saveExpenses(
-        $this->session->userdata('userid'),
+      $status = $this->Metric->saveExpenses($userid,
         $this->input->post('segment'),
         $this->input->post('expenses'));
-      $this->redirectWithMessage('Expenses saved.', '/dashboard');
+      if ($status) {
+        $this->redirectWithMessage('Expenses saved.', '/dashboard');
+      }
+      else {
+        $this->redirectWithError('Problem saving expenses.', '/dashboard');
+      }
     }
   }
 
@@ -75,8 +80,13 @@ class Metrics extends MY_Controller
       $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/cash.php', $data, true)));
     }
     else {
-      $this->Metric->saveCash($userid, $this->input->post('amount'));
-      $this->redirectWithMessage('Initial cash infusion saved.', '/dashboard');
+      $status = $this->Metric->saveCash($userid, $this->input->post('amount'));
+      if ($status) {
+        $this->redirectWithMessage('Initial cash infusion saved.', '/dashboard');
+      }
+      else {
+        $this->redirectWithError('Problem saving initial cash infusion.', '/dashboard');
+      }
     }
   }
 
@@ -105,13 +115,19 @@ class Metrics extends MY_Controller
       $userid = $this->session->userdata('userid');
       $month = $this->input->post('segment');
 
-      $this->Metric->saveRegistrations($userid, $month, $this->input->post('registrations'));
-      $this->Metric->saveActivations($userid, $month, $this->input->post('activations'));
-      $this->Metric->saveRetentions30($userid, $month, $this->input->post('retentions30'));
-      $this->Metric->saveRetentions90($userid, $month, $this->input->post('retentions90'));
-      $this->Metric->savePayingCustomers($userid, $month, $this->input->post('paying'));
-
-      $this->redirectWithMessage('Userbase data saved.', '/dashboard');
+      $status = $this->Metric->saveUserbase($this->session->userdata('userid'),
+        $this->input->post('segment'),
+        $this->input->post('registrations'),
+        $this->input->post('activations'),
+        $this->input->post('retentions30'),
+        $this->input->post('retentions90'),
+        $this->input->post('paying'));
+      if ($status) {
+        $this->redirectWithMessage('Userbase data saved.', '/dashboard');
+      }
+      else {
+        $this->redirectWithError('Problem saving userbase data.', '/dashboard');
+      }
     }
   }
 
@@ -152,14 +168,17 @@ class Metrics extends MY_Controller
       $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/web', null, true)));
     }
     else {
-      $userid = $this->session->userdata('userid');
-      $month = $this->input->post('segment');
-
-      $this->Metric->saveUniques($userid, $month, $this->input->post('uniques'));
-      $this->Metric->savePageViews($userid, $month, $this->input->post('views'));
-      $this->Metric->saveVisits($userid, $month, $this->input->post('visits'));
-
-      $this->redirectWithMessage('Web metrics saved.', '/dashboard');
+      $status = $this->Metric->saveWeb($this->session->userdata('userid'),
+        $this->input->post('segment'),
+        $this->input->post('uniques'),
+        $this->input->post('views'),
+        $this->input->post('visits'));
+      if ($status) {
+        $this->redirectWithMessage('Web metrics saved.', '/dashboard');
+      }
+      else {
+        $this->redirectWithError('Problem saving web metrics.', '/dashboard');
+      }
     }
   }
 
@@ -186,15 +205,18 @@ class Metrics extends MY_Controller
       $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/acquisition', null, true)));
     }
     else {
-      $userid = $this->session->userdata('userid');
-      $month = $this->input->post('segment');
-
-      $this->Metric->saveAcquisitionPaidCost($userid, $month, $this->input->post('acqPaidCost'));
-      $this->Metric->saveAcquisitionNetCost($userid, $month, $this->input->post('acqNetCost'));
-      $this->Metric->saveAdExpenses($userid, $month, $this->input->post('ads'));
-      $this->Metric->saveViralRatio($userid, $month, $this->input->post('viratio'));
-
-      $this->redirectWithMessage('Acquisition costs saved.', '/dashboard');
+      $status = $this->Metric->saveAcquisitions($this->session->userdata('userid'),
+        $this->input->post('segment'),
+        $this->input->post('acqPaidCost'),
+        $this->input->post('acqNetCost'),
+        $this->input->post('ads'),
+        $this->input->post('viratio'));
+      if ($status) {
+        $this->redirectWithMessage('Acquisition costs saved.', '/dashboard');
+      }
+      else {
+        $this->redirectWithError('Problems saving acquisition costs.', '/dashboard');
+      }
     }
   }
 
