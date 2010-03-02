@@ -18,13 +18,13 @@
   <td><?=$r->month?></td>
   <td><?=$r->registrations?></td>
   <td><?=$r->activations?></td>
-  <td><?php printf('%0.1f', $r->activations/$r->registrations*100)?></td>
+  <td><?php if ($r->registrations > 0) printf('%0.1f', $r->activations/$r->registrations*100); else echo 0; ?></td>
   <td><?=$r->retentions30?></td>
-  <td><?php printf('%0.1f', $r->retentions30/$tot*100)?></td>
+  <td><?php if ($tot > 0) printf('%0.1f', $r->retentions30/$tot*100); else echo 0; ?></td>
   <td><?=$r->retentions90?></td>
-  <td><?php printf('%0.1f', $r->retentions90/$tot*100)?></td>
+  <td><?php if ($tot > 0) printf('%0.1f', $r->retentions90/$tot*100); else echo 0; ?></td>
   <td><?=$r->payingCustomers?></td>
-  <td><?php printf('%0.1f', $r->payingCustomers/($r->activations+$r->retentions30))?></td>
+  <td><?php if (($r->activations+$r->retentions30) > 0) printf('%0.1f', $r->payingCustomers/($r->activations+$r->retentions30)); else echo 0; ?></td>
  </tr>
 <?php endforeach; ?>
 </table>
