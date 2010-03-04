@@ -478,7 +478,7 @@ class Sparkline extends Object {
     }
 
     if ($file == '') {
-      header('Content-type: image/png');
+      header('Content-Type: image/png');
       imagepng($this->imageHandle);
     } else {
       imagepng($this->imageHandle, $file);

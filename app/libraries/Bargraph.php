@@ -24,6 +24,10 @@ class Bargraph
     $this->graph->SetBarWidth($barWidth);
     $this->graph->SetBarSpacing($barSpacing);
     $this->graph->Render($height);
+
+    header('Cache-Control: no-store, no-cache, must-revalidate');
+    header('Expires: 0');
+    header('Pragma: no-cache');
     $this->graph->Output();
   }
 }
