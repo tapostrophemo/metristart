@@ -10,7 +10,12 @@
 <div id="containerWrapper">
  <div id="container">
 
-  <h1><a href="/">MetriStart - Metrics For Your Startup</a></h1>
+  <h1>
+   <a href="/">MetriStart - Metrics For Your Startup</a>
+  <?php if ($this->session->userdata('logged_in')): ?>
+   <div id="usernameTag">logged in as <?=$this->session->userdata('username')?></div>
+  <?php endif; ?>
+  </h1>
 
   <div id="content">
   <?php if ($this->session->flashdata('err')): ?>

@@ -22,6 +22,7 @@ class Site extends MY_Controller
       }
 
       $this->session->set_userdata('userid', $newUserId);
+      $this->session->set_userdata('username', $this->input->post('username'));
       $this->session->set_userdata('logged_in', true);
       $this->redirectWithMessage('Thank you for registering.', '/dashboard');
     }
@@ -34,6 +35,7 @@ class Site extends MY_Controller
     else {
       $user = $this->User->markLogin($this->input->post('username'));
       $this->session->set_userdata('userid', $user->id);
+      $this->session->set_userdata('username', $this->input->post('username'));
       $this->session->set_userdata('logged_in', true);
       $this->redirectWithMessage('Welcome back.', '/dashboard');
     }
