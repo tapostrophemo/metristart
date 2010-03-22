@@ -107,21 +107,37 @@ class Metrics extends MY_Controller
     $this->load->view('pageTemplate', array('content' => $this->load->view('metrics/burnrate', $data, true)));
   }
 
-  function userbase() {
+  function userbase($month = null, $year = null) {
+    $data['editing'] = $month != null && $year != null;
     if (!$this->form_validation->run('metrics_userbase')) {
-      $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/userbase', null, true)));
+      if ($data['editing']) {
+        $data = $this->Metric->getUserbase($this->session->userdata('userid'), "$month/$year");
+        $data['editing'] = true;
+      }
+      $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/userbase', $data, true)));
     }
     else {
       $userid = $this->session->userdata('userid');
       $month = $this->input->post('segment');
 
-      $status = $this->Metric->saveUserbase($this->session->userdata('userid'),
-        $this->input->post('segment'),
-        $this->input->post('registrations'),
-        $this->input->post('activations'),
-        $this->input->post('retentions30'),
-        $this->input->post('retentions90'),
-        $this->input->post('paying'));
+      if ($this->input->post('editing')) {
+        $status = $this->Metric->updateUserbase($this->session->userdata('userid'),
+          $this->input->post('segment'),
+          $this->input->post('registrations'),
+          $this->input->post('activations'),
+          $this->input->post('retentions30'),
+          $this->input->post('retentions90'),
+          $this->input->post('paying'));
+      }
+      else {
+        $status = $this->Metric->saveUserbase($this->session->userdata('userid'),
+          $this->input->post('segment'),
+          $this->input->post('registrations'),
+          $this->input->post('activations'),
+          $this->input->post('retentions30'),
+          $this->input->post('retentions90'),
+          $this->input->post('paying'));
+      }
       if ($status) {
         $this->redirectWithMessage('Userbase data saved.', '/dashboard');
       }

@@ -15,7 +15,7 @@
  </tr>
 <?php foreach ($userbase as $r): $tot = $r->registrations+$r->activations+$r->payingCustomers?>
  <tr>
-  <td><?=$r->month?></td>
+  <td><a href="/userbase/<?=$r->month?>" title="edit userbase metrics"><?=$r->month?></a></td>
   <td><?=$r->registrations?></td>
   <td><?=$r->activations?></td>
   <td><?php if ($r->registrations > 0) printf('%0.1f', $r->activations/$r->registrations*100); else echo 0; ?></td>

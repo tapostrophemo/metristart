@@ -88,42 +88,56 @@ class Metric extends Model
     return $results;
   }
 
+  function getUserbase($userid, $segment) {
+    $sql = "
+      SELECT segment, name, data
+      FROM metrics
+      WHERE user_id = ?
+      AND segment = ?
+      AND name in ('registrations', 'activations', 'retentions30', 'retentions90', 'payingCustomers')";
+    $query = $this->db->query($sql, array($userid, $segment));
+    $data['segment'] = $segment;
+    foreach ($query->result_array() as $row) {
+      $data[$row['name']] = $row['data'];
+    }
+    return $data;
+  }
+
   function saveUserbase($userid, $month, $registrations, $activations, $retentions30, $retentions90, $paying) {
     $this->db->trans_start();
 
-    $this->saveRegistrations($userid, $month, $registrations);
-    $this->saveActivations($userid, $month, $activations);
-    $this->saveRetentions30($userid, $month, $retentions30);
-    $this->saveRetentions90($userid, $month, $retentions90);
-    $this->savePayingCustomers($userid, $month, $paying);
+    $this->saveMetric('registrations', $userid, $month, $registrations);
+    $this->saveMetric('activations', $userid, $month, $activations);
+    $this->saveMetric('retentions30', $userid, $month, $retentions30);
+    $this->saveMetric('retentions90', $userid, $month, $retentions90);
+    $this->saveMetric('payingCustomers', $userid, $month, $paying);
 
     $this->db->trans_complete();
     return $this->db->trans_status();
   }
 
-  function saveRegistrations($userid, $month, $number) {
-    $data = array('user_id' => $userid, 'name' => 'registrations', 'segment' => $month, 'data' => $number);
+  function saveMetric($metric, $userid, $month, $number) {
+    $data = array('name' => $metric, 'user_id' => $userid, 'segment' => $month, 'data' => $number);
     $this->db->insert('metrics', $data);
   }
 
-  function saveActivations($userid, $month, $number) {
-    $data = array('user_id' => $userid, 'name' => 'activations', 'segment' => $month, 'data' => $number);
-    $this->db->insert('metrics', $data);
+  function updateUserbase($userid, $month, $registrations, $activations, $retentions30, $retentions90, $paying) {
+    $this->db->trans_start();
+
+    $this->updateMetric('registrations', $userid, $month, $registrations);
+    $this->updateMetric('activations', $userid, $month, $activations);
+    $this->updateMetric('retentions30', $userid, $month, $retentions30);
+    $this->updateMetric('retentions90', $userid, $month, $retentions90);
+    $this->updateMetric('payingCustomers', $userid, $month, $paying);
+
+    $this->db->trans_complete();
+    return $this->db->trans_status();
   }
 
-  function saveRetentions30($userid, $month, $number) {
-    $data = array('user_id' => $userid, 'name' => 'retentions30', 'segment' => $month, 'data' => $number);
-    $this->db->insert('metrics', $data);
-  }
-
-  function saveRetentions90($userid, $month, $number) {
-    $data = array('user_id' => $userid, 'name' => 'retentions90', 'segment' => $month, 'data' => $number);
-    $this->db->insert('metrics', $data);
-  }
-
-  function savePayingCustomers($userid, $month, $number) {
-    $data = array('user_id' => $userid, 'name' => 'payingCustomers', 'segment' => $month, 'data' => $number);
-    $this->db->insert('metrics', $data);
+  function updateMetric($metric, $userid, $month, $number) {
+    $criteria = array('name' => $metric, 'user_id' => $userid, 'segment' => $month);
+    $data = array('data' => $number);
+    $this->db->where($criteria)->update('metrics', $data);
   }
 
   function getUserbaseReport($userid) {
