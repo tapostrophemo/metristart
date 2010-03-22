@@ -3,12 +3,11 @@
 <?=validation_errors()?>
 
 <?=form_open('userbase')?>
-<input type="hidden" name="editing" value="<?=$editing ? 1 : 0?>"/>
 <table class="entryForm rounded">
  <tr>
   <td><label>Month</label></td>
  <?php if ($editing): ?>
-  <td><?=$segment?><input type="hidden" name="segment" value="<?=$segment?>"/></td>
+  <td><?=$segment?></td>
  <?php else: ?>
   <td><input type="text" name="segment" size="6" value="<?=set_value('segment')?>"/></td>
  <?php endif; ?>
@@ -57,6 +56,9 @@
   </td>
  </tr>
 </table>
+
+<input type="hidden" name="editing" value="<?=$editing ? 1 : 0?>"/>
+<?php if ($editing): ?><input type="hidden" name="segment" value="<?=$segment?>"/><?php endif; ?>
 </form>
 
 <?php $this->load->view('metrics/userbaseDefinitions'); ?>
