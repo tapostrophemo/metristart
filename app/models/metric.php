@@ -2,32 +2,28 @@
 
 class Metric extends Model
 {
+  function save($metric, $userid, $month, $number) {
+    $data = array('name' => $metric, 'user_id' => $userid, 'segment' => $month, 'data' => $number);
+    return $this->db->insert('metrics', $data);
+  }
+
+  function update($metric, $userid, $month, $number) {
+    $criteria = array('name' => $metric, 'user_id' => $userid, 'segment' => $month);
+    $data = array('data' => $number);
+    return $this->db->where($criteria)->update('metrics', $data);
+  }
+
   function saveRevenues($userid, $month, $revenue, $variableCost, $fixedCost) {
     $this->db->trans_start();
 
-    $this->saveRevenue($userid, $month, $revenue);
-    $this->saveVariableCost($userid, $month, $variableCost);
+    $this->save('revenue', $userid, $month, $revenue);
+    $this->save('varcost', $userid, $month, $variableCost);
     if ($fixedCost != null) {
-      $this->saveFixedCost($userid, $month, $fixedCost);
+      $this->save('fixcost', $userid, $month, $fixedCost);
      }
 
     $this->db->trans_complete();
     return $this->db->trans_status();
-  }
-
-  function saveRevenue($userid, $month, $amount) {
-    $data = array('user_id' => $userid, 'name' => 'revenue', 'segment' => $month, 'data' => $amount);
-    $this->db->insert('metrics', $data);
-  }
-
-  function saveVariableCost($userid, $month, $amount) {
-    $data = array('user_id' => $userid, 'name' => 'varcost', 'segment' => $month, 'data' => $amount);
-    $this->db->insert('metrics', $data);
-  }
-
-  function saveFixedCost($userid, $month, $amount) {
-    $data = array('user_id' => $userid, 'name' => 'fixcost', 'segment' => $month, 'data' => $amount);
-    $this->db->insert('metrics', $data);
   }
 
   function getRevenueReport($userid) {
@@ -65,8 +61,7 @@ class Metric extends Model
   }
 
   function saveExpenses($userid, $month, $amount) {
-    $data = array('user_id' => $userid, 'name' => 'expenses', 'segment' => $month, 'data' => $amount);
-    return $this->db->insert('metrics', $data);
+    return $this->save('expenses', $userid, $month, $amount);
   }
 
   function getBurnReport($userid) {
@@ -106,38 +101,27 @@ class Metric extends Model
   function saveUserbase($userid, $month, $registrations, $activations, $retentions30, $retentions90, $paying) {
     $this->db->trans_start();
 
-    $this->saveMetric('registrations', $userid, $month, $registrations);
-    $this->saveMetric('activations', $userid, $month, $activations);
-    $this->saveMetric('retentions30', $userid, $month, $retentions30);
-    $this->saveMetric('retentions90', $userid, $month, $retentions90);
-    $this->saveMetric('payingCustomers', $userid, $month, $paying);
+    $this->save('registrations', $userid, $month, $registrations);
+    $this->save('activations', $userid, $month, $activations);
+    $this->save('retentions30', $userid, $month, $retentions30);
+    $this->save('retentions90', $userid, $month, $retentions90);
+    $this->save('payingCustomers', $userid, $month, $paying);
 
     $this->db->trans_complete();
     return $this->db->trans_status();
-  }
-
-  function saveMetric($metric, $userid, $month, $number) {
-    $data = array('name' => $metric, 'user_id' => $userid, 'segment' => $month, 'data' => $number);
-    $this->db->insert('metrics', $data);
   }
 
   function updateUserbase($userid, $month, $registrations, $activations, $retentions30, $retentions90, $paying) {
     $this->db->trans_start();
 
-    $this->updateMetric('registrations', $userid, $month, $registrations);
-    $this->updateMetric('activations', $userid, $month, $activations);
-    $this->updateMetric('retentions30', $userid, $month, $retentions30);
-    $this->updateMetric('retentions90', $userid, $month, $retentions90);
-    $this->updateMetric('payingCustomers', $userid, $month, $paying);
+    $this->update('registrations', $userid, $month, $registrations);
+    $this->update('activations', $userid, $month, $activations);
+    $this->update('retentions30', $userid, $month, $retentions30);
+    $this->update('retentions90', $userid, $month, $retentions90);
+    $this->update('payingCustomers', $userid, $month, $paying);
 
     $this->db->trans_complete();
     return $this->db->trans_status();
-  }
-
-  function updateMetric($metric, $userid, $month, $number) {
-    $criteria = array('name' => $metric, 'user_id' => $userid, 'segment' => $month);
-    $data = array('data' => $number);
-    $this->db->where($criteria)->update('metrics', $data);
   }
 
   function getUserbaseReport($userid) {
@@ -162,27 +146,12 @@ class Metric extends Model
   function saveWeb($userid, $month, $uniques, $views, $visits) {
     $this->db->trans_start();
 
-    $this->saveUniques($userid, $month, $uniques);
-    $this->savePageViews($userid, $month, $views);
-    $this->saveVisits($userid, $month, $visits);
+    $this->save('uniques', $userid, $month, $uniques);
+    $this->save('pageViews', $userid, $month, $views);
+    $this->save('visits', $userid, $month, $visits);
 
     $this->db->trans_complete();
     return $this->db->trans_status();
-  }
-
-  function saveUniques($userid, $month, $number) {
-    $data = array('user_id' => $userid, 'name' => 'uniques', 'segment' => $month, 'data' => $number);
-    $this->db->insert('metrics', $data);
-  }
-
-  function savePageViews($userid, $month, $number) {
-    $data = array('user_id' => $userid, 'name' => 'pageViews', 'segment' => $month, 'data' => $number);
-    $this->db->insert('metrics', $data);
-  }
-
-  function saveVisits($userid, $month, $number) {
-    $data = array('user_id' => $userid, 'name' => 'visits', 'segment' => $month, 'data' => $number);
-    $this->db->insert('metrics', $data);
   }
 
   function getWebMetricsReport($userid) {
@@ -202,33 +171,13 @@ class Metric extends Model
   function saveAcquisitions($userid, $month, $paidCost, $netCost, $adCost, $viralRatio) {
     $this->db->trans_start();
 
-    $this->saveAcquisitionPaidCost($userid, $month, $paidCost);
-    $this->saveAcquisitionNetCost($userid, $month, $netCost);
-    $this->saveAdExpenses($userid, $month, $adCost);
-    $this->saveViralRatio($userid, $month, $viralRatio);
+    $this->save('acqPaidCost', $userid, $month, $paidCost);
+    $this->save('acqNetCost', $userid, $month, $netCost);
+    $this->save('ads', $userid, $month, $adCost);
+    $this->save('viratio', $userid, $month, $viralRatio);
 
     $this->db->trans_complete();
     return $this->db->trans_status();
-  }
-
-  function saveAcquisitionPaidCost($userid, $month, $number) {
-    $data = array('user_id' => $userid, 'name' => 'acqPaidCost', 'segment' => $month, 'data' => $number);
-    $this->db->insert('metrics', $data);
-  }
-
-  function saveAcquisitionNetCost($userid, $month, $number) {
-    $data = array('user_id' => $userid, 'name' => 'acqNetCost', 'segment' => $month, 'data' => $number);
-    $this->db->insert('metrics', $data);
-  }
-
-  function saveAdExpenses($userid, $month, $number) {
-    $data = array('user_id' => $userid, 'name' => 'ads', 'segment' => $month, 'data' => $number);
-    $this->db->insert('metrics', $data);
-  }
-
-  function saveViralRatio($userid, $month, $number) {
-    $data = array('user_id' => $userid, 'name' => 'viratio', 'segment' => $month, 'data' => $number);
-    $this->db->insert('metrics', $data);
   }
 
   function getAcquisitionCostsReport($userid) {
