@@ -23,7 +23,7 @@ $config = array(
     array('field' => 'segment', 'label' => 'month', 'rules' => 'trim|required|mm_yyyy'),
     array('field' => 'revenue', 'label' => 'total revenue', 'rules' => 'trim|required|integer'),
     array('field' => 'varcost', 'label' => 'total variable costs', 'rules' => 'trim|required|integer'),
-    array('field' => 'fixcost', 'label' => 'total fixed costs', 'rules' => 'trim|integer')
+    array('field' => 'fixcost', 'label' => 'total fixed costs', 'rules' => 'trim|required|integer')
   ),
 
   'metrics_expense' => array(

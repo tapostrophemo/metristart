@@ -18,12 +18,36 @@ class Metric extends Model
 
     $this->save('revenue', $userid, $month, $revenue);
     $this->save('varcost', $userid, $month, $variableCost);
-    if ($fixedCost != null) {
-      $this->save('fixcost', $userid, $month, $fixedCost);
-     }
+    $this->save('fixcost', $userid, $month, $fixedCost);
 
     $this->db->trans_complete();
     return $this->db->trans_status();
+  }
+
+  function updateRevenues($userid, $month, $revenue, $variableCost, $fixedCost) {
+    $this->db->trans_start();
+
+    $this->update('revenue', $userid, $month, $revenue);
+    $this->update('varcost', $userid, $month, $variableCost);
+    $this->update('fixcost', $userid, $month, $fixedCost);
+
+    $this->db->trans_complete();
+    return $this->db->trans_status();
+  }
+
+  function getRevenue($userid, $month) {
+    $data['segment'] = $month;
+    $sql = "
+        SELECT name, data
+        FROM metrics
+        WHERE user_id = ?
+        AND segment = ?
+        AND name in ('revenue', 'varcost', 'fixcost')";
+    $query = $this->db->query($sql, array($userid, $month));
+    foreach ($query->result_array() as $row) {
+      $data[$row['name']] = $row['data'];
+    }
+    return $data;
   }
 
   function getRevenueReport($userid) {
@@ -83,15 +107,15 @@ class Metric extends Model
     return $results;
   }
 
-  function getUserbase($userid, $segment) {
+  function getUserbase($userid, $month) {
+    $data['segment'] = $month;
     $sql = "
-      SELECT segment, name, data
+      SELECT name, data
       FROM metrics
       WHERE user_id = ?
       AND segment = ?
       AND name in ('registrations', 'activations', 'retentions30', 'retentions90', 'payingCustomers')";
-    $query = $this->db->query($sql, array($userid, $segment));
-    $data['segment'] = $segment;
+    $query = $this->db->query($sql, array($userid, $month));
     foreach ($query->result_array() as $row) {
       $data[$row['name']] = $row['data'];
     }

@@ -13,16 +13,32 @@ class Metrics extends MY_Controller
     }
   }
 
-  function revenue() {
+  function revenue($month = null, $year = null) {
+    $userid = $this->session->userdata('userid');
+
+    $data['editing'] = $month != null && $year != null;
     if (!$this->form_validation->run('metrics_revenue')) {
-      $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/revenue.php', null, true)));
+      if ($data['editing']) {
+        $data = $this->Metric->getRevenue($userid, "$month/$year");
+        $data['editing'] = true;
+      }
+      $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/revenue.php', $data, true)));
     }
     else {
-      $status = $this->Metric->saveRevenues($this->session->userdata('userid'),
-        $this->input->post('segment'),
-        $this->input->post('revenue'),
-        $this->input->post('varcost'),
-        $this->input->post('fixcost'));
+      if ($this->input->post('editing')) {
+        $status = $this->Metric->updateRevenues($userid,
+          $this->input->post('segment'),
+          $this->input->post('revenue'),
+          $this->input->post('varcost'),
+          $this->input->post('fixcost'));
+      }
+      else {
+        $status = $this->Metric->saveRevenues($userid,
+          $this->input->post('segment'),
+          $this->input->post('revenue'),
+          $this->input->post('varcost'),
+          $this->input->post('fixcost'));
+      }
       if ($status) {
         $this->redirectWithMessage('Revenues saved.', '/dashboard');
       }

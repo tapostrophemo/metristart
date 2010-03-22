@@ -11,6 +11,7 @@ $route['dashboard'] = 'users/dashboard';
 $route['account'] = 'users/account';
 
 $route['revenue'] = 'metrics/revenue';
+$route['revenue/(:num)/(:num)'] = 'metrics/revenue/$1/$2';
 $route['expense'] = 'metrics/expense';
 $route['infusion'] = 'metrics/infusion';
 $route['userbase'] = 'metrics/userbase';

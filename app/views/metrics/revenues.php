@@ -4,7 +4,7 @@
  <tr><th>Month</th><th>Revenue Amt.</th><th>Contrib. Margin</th><th>Net Op. Income</th></tr>
 <?php foreach ($revenues as $r): ?>
  <tr>
-  <td><?=$r->month?></td>
+  <td><a href="/revenue/<?=$r->month?>" title="edit revenue metrics"><?=$r->month?></td>
   <td><?=$r->revenue?></td>
   <td><?=$r->contribution_margin?></td>
   <td><?=$r->net_operating_income?></td>
