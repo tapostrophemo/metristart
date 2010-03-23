@@ -20,4 +20,5 @@ $route['userbase/(:num)/(:num)'] = 'metrics/userbase/$1/$2';
 $route['web'] = 'metrics/web';
 $route['web/(:num)/(:num)'] = 'metrics/web/$1/$2';
 $route['acquisition'] = 'metrics/acquisition';
+$route['acquisition/(:num)/(:num)'] = 'metrics/acquisition/$1/$2';
 

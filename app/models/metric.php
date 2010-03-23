@@ -227,6 +227,18 @@ class Metric extends Model
     return $this->db->query($sql, $userid)->result();
   }
 
+  function getAcquisitions($userid, $month) {
+    $query = $this->db->select('name, data')
+      ->where('user_id', $userid)
+      ->where('segment', $month)
+      ->where_in('name', array('acqPaidCost', 'acqNetCost', 'ads', 'viratio'))->get('metrics');
+    $ret['segment'] = $month;
+    foreach ($query->result_array() as $row) {
+      $ret[$row['name']] = $row['data'];
+    }
+    return $ret;
+  }
+
   function saveAcquisitions($userid, $month, $paidCost, $netCost, $adCost, $viralRatio) {
     $this->db->trans_start();
 
@@ -234,6 +246,18 @@ class Metric extends Model
     $this->save('acqNetCost', $userid, $month, $netCost);
     $this->save('ads', $userid, $month, $adCost);
     $this->save('viratio', $userid, $month, $viralRatio);
+
+    $this->db->trans_complete();
+    return $this->db->trans_status();
+  }
+
+  function updateAcquisitions($userid, $month, $paidCost, $netCost, $adCost, $viralRatio) {
+    $this->db->trans_start();
+
+    $this->update('acqPaidCost', $userid, $month, $paidCost);
+    $this->update('acqNetCost', $userid, $month, $netCost);
+    $this->update('ads', $userid, $month, $adCost);
+    $this->update('viratio', $userid, $month, $viralRatio);
 
     $this->db->trans_complete();
     return $this->db->trans_status();

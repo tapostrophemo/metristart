@@ -260,17 +260,35 @@ class Metrics extends MY_Controller
     $this->load->view('pageTemplate', array('content' => $this->load->view('metrics/web', $data, true)));
   }
 
-  function acquisition() {
+  function acquisition($month = null, $year = null) {
+    $userid = $this->session->userdata('userid');
+
     if (!$this->form_validation->run('metrics_acquisition')) {
-      $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/acquisition', null, true)));
+      $data['editing'] = false;
+      if (!$month == null && !$year == null) {
+        $data = $this->Metric->getAcquisitions($userid, "$month/$year");
+        $data['editing'] = true;
+      }
+      $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/acquisition', $data, true)));
     }
     else {
-      $status = $this->Metric->saveAcquisitions($this->session->userdata('userid'),
-        $this->input->post('segment'),
-        $this->input->post('acqPaidCost'),
-        $this->input->post('acqNetCost'),
-        $this->input->post('ads'),
-        $this->input->post('viratio'));
+      if ($this->input->post('editing')) {
+        $status = $this->Metric->updateAcquisitions($userid,
+          $this->input->post('segment'),
+          $this->input->post('acqPaidCost'),
+          $this->input->post('acqNetCost'),
+          $this->input->post('ads'),
+          $this->input->post('viratio'));
+      }
+      else {
+        $status = $this->Metric->saveAcquisitions($userid,
+          $this->input->post('segment'),
+          $this->input->post('acqPaidCost'),
+          $this->input->post('acqNetCost'),
+          $this->input->post('ads'),
+          $this->input->post('viratio'));
+      }
+
       if ($status) {
         $this->redirectWithMessage('Acquisition costs saved.', '/dashboard');
       }
