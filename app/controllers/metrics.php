@@ -206,16 +206,33 @@ class Metrics extends MY_Controller
     $this->load->view('pageTemplate', array('content' => $this->load->view('metrics/userbase', $data, true)));
   }
 
-  function web() {
+  function web($month = null, $year = null) {
+    $userid = $this->session->userdata('userid');
+
     if (!$this->form_validation->run('metrics_web')) {
-      $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/web', null, true)));
+      $data['editing'] = false;
+      if ($month != null && $year != null) {
+        $data = $this->Metric->getWeb($userid, "$month/$year");
+        $data['editing'] = true;
+      }
+      $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/web', $data, true)));
     }
     else {
-      $status = $this->Metric->saveWeb($this->session->userdata('userid'),
-        $this->input->post('segment'),
-        $this->input->post('uniques'),
-        $this->input->post('views'),
-        $this->input->post('visits'));
+      if ($this->input->post('editing')) {
+        $status = $this->Metric->updateWeb($userid,
+          $this->input->post('segment'),
+          $this->input->post('uniques'),
+          $this->input->post('views'),
+          $this->input->post('visits'));
+      }
+      else {
+        $status = $this->Metric->saveWeb($userid,
+          $this->input->post('segment'),
+          $this->input->post('uniques'),
+          $this->input->post('views'),
+          $this->input->post('visits'));
+      }
+
       if ($status) {
         $this->redirectWithMessage('Web metrics saved.', '/dashboard');
       }

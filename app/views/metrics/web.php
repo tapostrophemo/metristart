@@ -4,7 +4,7 @@
  <tr><th>Month</th><th>Uniq. Visitors</th><th>Tot. Page Views</th><th>Tot. Visits</th><th>Page Views/Visit</th></tr>
 <?php foreach ($metrics as $m): ?>
  <tr>
-  <td><?=$m->month?></td>
+  <td><a href="/web/<?=$m->month?>" title="edit web metrics"><?=$m->month?></a></td>
   <td><?=$m->uniques?></td>
   <td><?=$m->pageViews?></td>
   <td><?=$m->visits?></td>

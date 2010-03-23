@@ -179,12 +179,35 @@ class Metric extends Model
     return $this->db->query($sql, $userid)->result();
   }
 
+  function getWeb($userid, $month) {
+    $query = $this->db->select('name, data')
+      ->where('user_id', $userid)
+      ->where('segment', $month)
+      ->where_in('name', array('uniques', 'pageViews', 'visits'))->get('metrics');
+    $ret['segment'] = $month;
+    foreach ($query->result_array() as $row) {
+      $ret[$row['name']] = $row['data'];
+    }
+    return $ret;
+  }
+
   function saveWeb($userid, $month, $uniques, $views, $visits) {
     $this->db->trans_start();
 
     $this->save('uniques', $userid, $month, $uniques);
     $this->save('pageViews', $userid, $month, $views);
     $this->save('visits', $userid, $month, $visits);
+
+    $this->db->trans_complete();
+    return $this->db->trans_status();
+  }
+
+  function updateWeb($userid, $month, $uniques, $views, $visits) {
+    $this->db->trans_start();
+
+    $this->update('uniques', $userid, $month, $uniques);
+    $this->update('pageViews', $userid, $month, $views);
+    $this->update('visits', $userid, $month, $visits);
 
     $this->db->trans_complete();
     return $this->db->trans_status();
