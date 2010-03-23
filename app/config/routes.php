@@ -13,6 +13,7 @@ $route['account'] = 'users/account';
 $route['revenue'] = 'metrics/revenue';
 $route['revenue/(:num)/(:num)'] = 'metrics/revenue/$1/$2';
 $route['expense'] = 'metrics/expense';
+$route['expense/(:num)/(:num)'] = 'metrics/expense/$1/$2';
 $route['infusion'] = 'metrics/infusion';
 $route['userbase'] = 'metrics/userbase';
 $route['userbase/(:num)/(:num)'] = 'metrics/userbase/$1/$2';

@@ -15,8 +15,8 @@ class Metrics extends MY_Controller
 
   function revenue($month = null, $year = null) {
     $userid = $this->session->userdata('userid');
-
     $data['editing'] = $month != null && $year != null;
+
     if (!$this->form_validation->run('metrics_revenue')) {
       if ($data['editing']) {
         $data = $this->Metric->getRevenue($userid, "$month/$year");
@@ -65,7 +65,7 @@ class Metrics extends MY_Controller
     $this->load->view('pageTemplate', array('content' => $this->load->view('metrics/revenues', $data, true)));
   }
 
-  function expense() {
+  function expense($month = null, $year = null) {
     $userid = $this->session->userdata('userid');
 
     if (!$this->form_validation->run('metrics_expense')) {
@@ -73,12 +73,23 @@ class Metrics extends MY_Controller
       if (count($data['cash']) == 1) {
         $data['burn'] = $this->Metric->getBurn($userid);
       }
+      if ($data['editing'] = ($month != null && $year != null)) {
+        $data['expenses'] = $this->Metric->getExpense($userid, "$month/$year");
+      }
       $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/expense.php', $data, true)));
     }
     else {
-      $status = $this->Metric->saveExpenses($userid,
-        $this->input->post('segment'),
-        $this->input->post('expenses'));
+      if ($this->input->post('editing')) {
+        $status = $this->Metric->updateExpense($userid,
+          $this->input->post('segment'),
+          $this->input->post('expenses'));
+      }
+      else {
+        $status = $this->Metric->saveExpense($userid,
+          $this->input->post('segment'),
+          $this->input->post('expenses'));
+      }
+
       if ($status) {
         $this->redirectWithMessage('Expenses saved.', '/dashboard');
       }

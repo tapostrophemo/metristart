@@ -79,13 +79,25 @@ class Metric extends Model
     return $this->db->query($sql, $userid)->row(0);
   }
 
+  function getExpense($userid, $month) {
+    return $this->db->select('segment, data')
+      ->where('user_id', $userid)
+      ->where('segment', $month)
+      ->where('name', 'expenses')
+      ->get('metrics')->row();
+  }
+
   function saveCash($userid, $amount) {
     $data = array('user_id' => $userid, 'name' => 'cash', 'data' => $amount);
     return $this->db->insert('metrics', $data);
   }
 
-  function saveExpenses($userid, $month, $amount) {
+  function saveExpense($userid, $month, $amount) {
     return $this->save('expenses', $userid, $month, $amount);
+  }
+
+  function updateExpense($userid, $month, $amount) {
+    return $this->update('expenses', $userid, $month, $amount);
   }
 
   function getBurnReport($userid) {
