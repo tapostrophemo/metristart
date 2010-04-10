@@ -23,6 +23,8 @@
  </tr>
 </table>
 
+<br/>
+
 <a href="/revenue">Enter Revenues</a> |
 <a href="/expense">Enter Expenses</a> |
 <a href="/userbase">Enter User Base Metrics</a> |

@@ -51,7 +51,7 @@ class User extends Model
   }
 
   function findByUsername($username) {
-    $query = $this->db->select('id, username, email')->where('username', $username)->get('users');
+    $query = $this->db->select('id, username, email, is_admin')->where('username', $username)->get('users');
     if ($query->num_rows == 1) {
       $result = $query->result();
       return $result[0];

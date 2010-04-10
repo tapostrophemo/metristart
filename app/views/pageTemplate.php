@@ -31,6 +31,7 @@
  <?php if ($this->session->userdata('logged_in')): ?>
   <a href="/dashboard">Dashboard</a> |
   <a href="/account">Account</a> |
+  <?php if ($this->session->userdata('is_admin')): ?><a href="/admin">Admin</a> |<?php endif; ?>
   <a href="/logout">Logout</a>
  <?php else: ?>
   <a href="/register">Register</a> |
