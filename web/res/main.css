@@ -177,3 +177,26 @@ pre {
   padding: 2em;
 }
 
+#userDetailDialog {
+  background-color: white;
+  border: 1px solid #716f5b;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -95px;
+  margin-left: -125px;
+  width: 250px;
+}
+
+.dialog {
+  display: none;
+  padding: 7px;
+}
+
+a.dialogClose {
+  float: right;
+  font-size: 90%;
+  font-style: italic;
+}
+

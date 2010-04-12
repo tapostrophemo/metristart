@@ -73,6 +73,10 @@ class User extends Model
     }
   }
 
+  function findAll() {
+    return $this->db->select('id, username, email, registered_at, last_login_at')->get('users')->result();
+  }
+
   function update($userid, $email, $password = null) {
     $this->load->helper('date');
     $data = array('email' => $email, 'updated_at' => mdate('%Y-%m-%d %H:%i:%s', time()));
