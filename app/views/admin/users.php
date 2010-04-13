@@ -27,6 +27,7 @@ $(document).ready(function () {
 
   jQuery.each($(".report a"), function (i, link) {
     $(link).click(function () {
+      $("#userDetailContent").html('<div class="loading"><img src="/res/wait.gif" alt="loading..."/></div>');
       $("#userDetailContent").load(link.href);
       $("#userDetailDialog").show();
       return false;
