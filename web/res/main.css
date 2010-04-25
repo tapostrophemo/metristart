@@ -167,6 +167,7 @@ hr {
   text-align: right;
 }
 .toc img {
+  border-bottom: 2px solid white;
   border-left: 9px solid white;
 }
 
