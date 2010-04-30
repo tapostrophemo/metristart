@@ -2,12 +2,12 @@
 
 <table border="0" cellspacing="0" cellpadding="0">
  <tr>
-  <th>Revenues</th>
-  <td class="toc"><a href="/metrics/revenues"><img src="/metrics/revgraph/16" border="0" alt="revenues report"/></a></td>
+  <th>Expenses</th>
+  <td class="toc"><a href="/metrics/burnrate"><img src="/metrics/burngraph/16" border="0" alt="burnrate report"/></a></td>
  </tr>
  <tr>
-  <th>Burnrate</th>
-  <td class="toc"><a href="/metrics/burnrate"><img src="/metrics/burngraph/16" border="0" alt="burnrate report"/></a></td>
+  <th>Revenues</th>
+  <td class="toc"><a href="/metrics/revenues"><img src="/metrics/revgraph/16" border="0" alt="revenues report"/></a></td>
  </tr>
  <tr>
   <th>User Base</th>
@@ -25,8 +25,8 @@
 
 <br/>
 
-<a href="/revenue">Enter Revenues</a> |
 <a href="/expense">Enter Expenses</a> |
+<a href="/revenue">Enter Revenues</a> |
 <a href="/userbase">Enter User Base Metrics</a> |
 <a href="/web">Enter Web Metrics</a> |
 <a href="/acquisition">Enter Acquisition Metrics</a>
