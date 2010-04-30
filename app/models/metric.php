@@ -13,6 +13,18 @@ class Metric extends Model
     return $this->db->where($criteria)->update('metrics', $data);
   }
 
+  function lastEntryDate($metric, $userid) {
+    $sql = "
+      SELECT segment AS last_entry_date
+      FROM metrics
+      WHERE user_id = ?
+      AND name = ?
+      ORDER BY Str_To_Date(segment, '%m/%Y') DESC
+      LIMIT 1";
+    $query = $this->db->query($sql, array($userid, $metric));
+    return $query->num_rows() > 0 ? $query->row()->last_entry_date : null;
+  }
+
   function saveRevenues($userid, $month, $revenue, $variableCost, $fixedCost) {
     $this->db->trans_start();
 

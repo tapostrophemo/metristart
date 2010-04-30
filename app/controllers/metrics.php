@@ -22,6 +22,7 @@ class Metrics extends MY_Controller
         $data = $this->Metric->getRevenue($userid, "$month/$year");
         $data['editing'] = true;
       }
+      $data['last_entry_date'] = $this->Metric->lastEntryDate('revenue', $userid);
       $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/revenue.php', $data, true)));
     }
     else {
@@ -104,7 +105,7 @@ class Metrics extends MY_Controller
 
     if (!$this->form_validation->run('metrics_infusion')) {
       $data = array('cash' => $this->Metric->getCash($userid));
-      $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/cash.php', $data, true)));
+      $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/expense.php', $data, true)));
     }
     else {
       $status = $this->Metric->saveCash($userid, $this->input->post('amount'));
