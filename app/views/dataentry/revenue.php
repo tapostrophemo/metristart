@@ -11,7 +11,8 @@
  <?php else: ?>
   <td>
    <input type="text" name="segment" size="6" value="<?=set_value('segment')?>"/><br/>
-   <small>Last Month Entered: <?=$last_entry_date?></small></td>
+   <small>Last Month Entered: <?=$last_entry_date?></small>
+  </td>
  <?php endif; ?>
  </tr>
  <tr>

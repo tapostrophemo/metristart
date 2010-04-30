@@ -136,12 +136,14 @@ class Metrics extends MY_Controller
   }
 
   function userbase($month = null, $year = null) {
+    $userid = $this->session->userdata('userid');
     $data['editing'] = $month != null && $year != null;
     if (!$this->form_validation->run('metrics_userbase')) {
       if ($data['editing']) {
-        $data = $this->Metric->getUserbase($this->session->userdata('userid'), "$month/$year");
+        $data = $this->Metric->getUserbase($userid, "$month/$year");
         $data['editing'] = true;
       }
+      $data['last_entry_date'] = $this->Metric->lastEntryDate('registrations', $userid);
       $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/userbase', $data, true)));
     }
     else {
@@ -216,6 +218,7 @@ class Metrics extends MY_Controller
         $data = $this->Metric->getWeb($userid, "$month/$year");
         $data['editing'] = true;
       }
+      $data['last_entry_date'] = $this->Metric->lastEntryDate('pageViews', $userid);
       $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/web', $data, true)));
     }
     else {
@@ -270,6 +273,7 @@ class Metrics extends MY_Controller
         $data = $this->Metric->getAcquisitions($userid, "$month/$year");
         $data['editing'] = true;
       }
+      $data['last_entry_date'] = $this->Metric->lastEntryDate('acqPaidCost', $userid);
       $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/acquisition', $data, true)));
     }
     else {
