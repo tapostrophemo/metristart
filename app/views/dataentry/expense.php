@@ -24,7 +24,12 @@
  <?php if ($editing): ?>
   <td><?=$expenses->segment?></pre></td>
  <?php else: ?>
-  <td><input type="text" name="segment" size="6" value="<?=set_value('segment')?>"/></td>
+  <td>
+   <input type="text" name="segment" size="6" value="<?=set_value('segment')?>"/><br/>
+  <?php if (isset($burn->month)): ?>
+   <small>Last Month Entered: <?=$burn->month?></small>
+  <?php endif; ?>
+  </td>
  <?php endif; ?>
  </tr>
 
@@ -32,7 +37,7 @@
  <tr>
   <td><label>Remaining Previous Month</label></td>
  <?php if (isset($burn->burn)): ?>
-  <td>$<?=$cash->data - $burn->burn?> <small>(as of <?=$burn->month?>)</small></td>
+  <td>$<?=$cash->data - $burn->burn?></td>
  <?php else: ?>
   <td>$<?=$cash->data?> <small>(initial cash infusion)</small></td>
  <?php endif; ?>

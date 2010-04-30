@@ -84,10 +84,13 @@ class Metric extends Model
 
   function getBurn($userid) {
     $sql = "
-      SELECT Sum(data) AS burn, Max(Str_To_Date(segment, '%m/%Y')) AS month
-      FROM metrics
-      WHERE user_id = ?
-      AND name = 'expenses'";
+      SELECT burn, Date_Format(dt, '%m/%Y') AS month
+      FROM (
+        SELECT Sum(data) AS burn, Max(Str_To_Date(segment, '%m/%Y')) AS dt
+        FROM metrics
+        WHERE user_id = ?
+        AND name = 'expenses'
+      ) x";
     return $this->db->query($sql, $userid)->row(0);
   }
 
