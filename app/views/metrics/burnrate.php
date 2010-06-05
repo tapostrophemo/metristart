@@ -11,3 +11,5 @@
 <?php endforeach; ?>
 </table>
 
+<a href="/expense">Enter Expenses</a>
+

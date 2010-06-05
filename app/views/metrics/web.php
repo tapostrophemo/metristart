@@ -13,3 +13,4 @@
 <?php endforeach; ?>
 </table>
 
+<a href="/web">Enter Web Metrics</a>

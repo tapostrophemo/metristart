@@ -12,3 +12,5 @@
 <?php endforeach; ?>
 </table>
 
+<a href="/revenue">Enter Revenues</a>
+

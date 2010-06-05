@@ -31,3 +31,5 @@
 
 <?php $this->load->view('metrics/userbaseDefinitions'); ?>
 
+<a href="/userbase">Enter User Base Metrics</a>
+

@@ -15,3 +15,5 @@
 
 <?php $this->load->view('metrics/acquisitionDefinitions'); ?>
 
+<a href="/acquisition">Enter Acquisition Metrics</a>
+
