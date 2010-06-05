@@ -14,7 +14,7 @@
   <h1>
    <a href="/">MetriStart - Metrics For Your Startup</a>
   <?php if ($this->session->userdata('logged_in')): ?>
-   <div id="usernameTag">logged in as <?=$this->session->userdata('username')?></div>
+   <div id="usernameTag">logged in as <?=$this->session->userdata('username')?> | <a href="/logout">logout</a></div>
   <?php endif; ?>
   </h1>
 
