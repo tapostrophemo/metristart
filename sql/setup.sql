@@ -8,6 +8,7 @@ create table users(
   current_login_at datetime default null,
   last_login_at    datetime default null,
   updated_at       datetime default null,
+  is_admin         boolean default 0,
   primary key(id)
 ) engine = InnoDB;
 
