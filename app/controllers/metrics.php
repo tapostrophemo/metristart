@@ -83,12 +83,14 @@ class Metrics extends MY_Controller
       if ($this->input->post('editing')) {
         $status = $this->Metric->updateExpense($userid,
           $this->input->post('segment'),
-          $this->input->post('expenses'));
+          $this->input->post('expenses'),
+          $this->input->post('description'));
       }
       else {
         $status = $this->Metric->saveExpense($userid,
           $this->input->post('segment'),
-          $this->input->post('expenses'));
+          $this->input->post('expenses'),
+          $this->input->post('description'));
       }
 
       if ($status) {

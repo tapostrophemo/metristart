@@ -28,7 +28,8 @@ $config = array(
 
   'metrics_expense' => array(
     array('field' => 'segment', 'label' => 'month', 'rules' => 'trim|required|mm_yyyy'),
-    array('field' => 'expenses', 'label' => 'total expenses', 'rules' => 'trim|required|integer')
+    array('field' => 'expenses', 'label' => 'total expenses', 'rules' => 'trim|required|integer'),
+    array('field' => 'description', 'label' => 'description', 'rules' => 'trim|max_length[255]|xss_clean')
   ),
 
   'metrics_infusion' => array(

@@ -2,14 +2,20 @@
 
 class Metric extends Model
 {
-  function save($metric, $userid, $month, $number) {
+  function save($metric, $userid, $month, $number, $description = null) {
     $data = array('name' => $metric, 'user_id' => $userid, 'segment' => $month, 'data' => $number);
+    if (null != $description) {
+      $data['description'] = $description;
+    }
     return $this->db->insert('metrics', $data);
   }
 
-  function update($metric, $userid, $month, $number) {
+  function update($metric, $userid, $month, $number, $description = null) {
     $criteria = array('name' => $metric, 'user_id' => $userid, 'segment' => $month);
     $data = array('data' => $number);
+    if (null != $description) {
+      $data['description'] = $description;
+    }
     return $this->db->where($criteria)->update('metrics', $data);
   }
 
@@ -95,7 +101,7 @@ class Metric extends Model
   }
 
   function getExpense($userid, $month) {
-    return $this->db->select('segment, data')
+    return $this->db->select('segment, data, description')
       ->where('user_id', $userid)
       ->where('segment', $month)
       ->where('name', 'expenses')
@@ -107,19 +113,19 @@ class Metric extends Model
     return $this->db->insert('metrics', $data);
   }
 
-  function saveExpense($userid, $month, $amount) {
-    return $this->save('expenses', $userid, $month, $amount);
+  function saveExpense($userid, $month, $amount, $description = null) {
+    return $this->save('expenses', $userid, $month, $amount, $description);
   }
 
-  function updateExpense($userid, $month, $amount) {
-    return $this->update('expenses', $userid, $month, $amount);
+  function updateExpense($userid, $month, $amount, $description = null) {
+    return $this->update('expenses', $userid, $month, $amount, $description);
   }
 
   function getBurnReport($userid) {
     $sql = "
-      SELECT null AS month, 0 AS expenses, data AS cash FROM metrics WHERE user_id = ? AND name = 'cash'
+      SELECT null AS month, 0 AS expenses, data AS cash, description FROM metrics WHERE user_id = ? AND name = 'cash'
       UNION ALL
-      SELECT segment AS month, data AS expenses, 0 AS cash FROM metrics WHERE user_id = ? AND name = 'expenses'
+      SELECT segment AS month, data AS expenses, 0 AS cash, description FROM metrics WHERE user_id = ? AND name = 'expenses'
       ORDER BY Str_To_Date(month, '%m/%Y')";
     $results = $this->db->query($sql, array($userid, $userid))->result();
 

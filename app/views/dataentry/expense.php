@@ -48,6 +48,10 @@
   <td><label>Total Expenses</label></td>
   <td><input type="text" name="expenses" size="10" value="<?=$editing ? $expenses->data : set_value('amount')?>"/></td>
  </tr>
+ <tr>
+  <td><label>Description</label></td>
+  <td><input type="text" name="description" size="15" value="<?=$editing ? form_prep($expenses->description) : set_value('description')?>"/></td>
+ </tr>
 
 <?php endif; ?>
 

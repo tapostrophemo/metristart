@@ -1,2 +1,2 @@
-alter table users add column is_admin boolean default 0;
+alter table metrics add column description varchar(255);
 
