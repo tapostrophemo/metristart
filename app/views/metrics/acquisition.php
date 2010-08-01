@@ -1,4 +1,4 @@
-<h2>Customer Acquisitions</h2>
+<h2>Customer Acquisitions <img src="/metrics/acqgraph/16" alt="acquisitions"/></h2>
 
 <table class="report">
  <tr><th>Month</th><th>Paid Cost / Acquisition</th><th>Net Cost / Acquisition</th><th>Advertising Expenses</th><th>Viral Acquisition Ratio</th></tr>

@@ -1,4 +1,4 @@
-<h2>User Base</h2>
+<h2>User Base <img src="/metrics/userbasegraph/16" alt="userbase"/></h2>
 
 <table class="report" border="0" cellspacing="0" cellpadding="0">
  <tr>
