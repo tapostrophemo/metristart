@@ -1,4 +1,4 @@
-<h2>User Base <img src="/metrics/userbasegraph/16" alt="userbase"/></h2>
+<h2><a href="/metrics/ub">User Base <img src="/metrics/userbasegraph/16" alt="userbase"/></a></h2>
 
 <table class="report" border="0" cellspacing="0" cellpadding="0">
  <tr>
@@ -29,7 +29,8 @@
 <?php endforeach; ?>
 </table>
 
+<?php if ((isset($collapsed) && !$collapsed) || !isset($collapsed)): ?>
 <?php $this->load->view('metrics/userbaseDefinitions'); ?>
-
 <a href="/userbase">Enter User Base Metrics</a>
+<?php endif; ?>
 

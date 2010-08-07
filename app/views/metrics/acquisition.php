@@ -1,19 +1,20 @@
-<h2>Customer Acquisitions <img src="/metrics/acqgraph/16" alt="acquisitions"/></h2>
+<h2><a href="/metrics/acq">Customer Acquisitions <img src="/metrics/acqgraph/16" alt="acquisitions"/></a></h2>
 
 <table class="report">
  <tr><th>Month</th><th>Paid Cost / Acquisition</th><th>Net Cost / Acquisition</th><th>Advertising Expenses</th><th>Viral Acquisition Ratio</th></tr>
-<?php foreach ($metrics as $m): ?>
+<?php foreach ($acquisition as $a): ?>
  <tr>
-  <td><a href="/acquisition/<?=$m->month?>" title="edit customer acquisition metric"/><?=$m->month?></a></td>
-  <td><?=$m->paidCost?></td>
-  <td><?=$m->netCost?></td>
-  <td><?=$m->ads?></td>
-  <td><?=$m->viratio?></td>
+  <td><a href="/acquisition/<?=$a->month?>" title="edit customer acquisition metric"/><?=$a->month?></a></td>
+  <td><?=$a->paidCost?></td>
+  <td><?=$a->netCost?></td>
+  <td><?=$a->ads?></td>
+  <td><?=$a->viratio?></td>
  </tr>
 <?php endforeach; ?>
 </table>
 
+<?php if ((isset($collapsed) && !$collapsed) || !isset($collapsed)): ?>
 <?php $this->load->view('metrics/acquisitionDefinitions'); ?>
-
 <a href="/acquisition">Enter Acquisition Metrics</a>
+<?php endif; ?>
 

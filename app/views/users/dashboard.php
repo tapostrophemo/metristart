@@ -21,6 +21,10 @@
   <th>Acquisitions</th>
   <td class="toc"><a href="/metrics/acq"><img src="/metrics/acqgraph/16" border="0" alt="acquisitions report"/></a></td>
  </tr>
+ <tr>
+  <td></td>
+  <td class="toc"><a class="noleader" href="/fullreport">Full Report</a></td>
+ </tr>
 </table>
 
 <br/>

@@ -262,7 +262,7 @@ class Metrics extends MY_Controller
   }
 
   function wb() {
-    $data = array('metrics' => $this->Metric->getWebMetricsReport($this->session->userdata('userid')));
+    $data = array('web' => $this->Metric->getWebMetricsReport($this->session->userdata('userid')));
     $this->load->view('pageTemplate', array('content' => $this->load->view('metrics/web', $data, true)));
   }
 
@@ -319,8 +319,18 @@ class Metrics extends MY_Controller
   }
 
   function acq() {
-    $data = array('metrics' => $this->Metric->getAcquisitionCostsReport($this->session->userdata('userid')));
+    $data = array('acquisition' => $this->Metric->getAcquisitionCostsReport($this->session->userdata('userid')));
     $this->load->view('pageTemplate', array('content' => $this->load->view('metrics/acquisition', $data, true)));
+  }
+
+  function all() {
+    $userid = $this->session->userdata('userid');
+    $data['revenues'] = $this->Metric->getRevenueReport($userid);
+    $data['expenses'] = $this->Metric->getBurnReport($userid);
+    $data['userbase'] = $this->Metric->getUserbaseReport($userid);
+    $data['web'] = $this->Metric->getWebMetricsReport($userid);
+    $data['acquisition'] = $this->Metric->getAcquisitionCostsReport($userid);
+    $this->load->view('pageTemplate', array('content' => $this->load->view('metrics/fullReport', $data, true)));
   }
 }
 

@@ -133,6 +133,13 @@ h2 {
   font-family: "Arial Bold", sans-serif;
   font-size: 18px;
 }
+h2 a {
+  color: #353220;
+  text-decoration: none;
+}
+h2 a img {
+  border: 0;
+}
 
 hr {
   color: #D9D4AE;
@@ -169,6 +176,13 @@ hr {
 .toc img {
   border-bottom: 2px solid white;
   border-left: 9px solid white;
+}
+
+.noleader {
+  background-color: white;
+  display: block;
+  height: 100%;
+  width: 100%;
 }
 
 pre {

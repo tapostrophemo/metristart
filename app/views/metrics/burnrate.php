@@ -1,4 +1,4 @@
-<h2>Burn Rate / Expenses <img src="/metrics/burngraph/16" alt="burnrate"/></h2>
+<h2><a href="/metrics/burnrate">Burn Rate / Expenses <img src="/metrics/burngraph/16" alt="burnrate"/></a></h2>
 
 <table class="report">
  <tr><th>Month</th><th>Expenses</th><th>Description</th><th>Cash Remaining</th></tr>
@@ -12,5 +12,7 @@
 <?php endforeach; ?>
 </table>
 
+<?php if ((isset($collapsed) && !$collapsed) || !isset($collapsed)): ?>
 <a href="/expense">Enter Expenses</a>
+<?php endif; ?>
 

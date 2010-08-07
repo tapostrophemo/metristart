@@ -1,16 +1,19 @@
-<h2>Web Metrics <img src="/metrics/webgraph/16" alt="web metrics"/></h2>
+<h2<a href="/metrics/wb">Web Metrics <img src="/metrics/webgraph/16" alt="web metrics"/></a></h2>
 
 <table class="report">
  <tr><th>Month</th><th>Uniq. Visitors</th><th>Tot. Page Views</th><th>Tot. Visits</th><th>Page Views/Visit</th></tr>
-<?php foreach ($metrics as $m): ?>
+<?php foreach ($web as $w): ?>
  <tr>
-  <td><a href="/web/<?=$m->month?>" title="edit web metrics"><?=$m->month?></a></td>
-  <td><?=$m->uniques?></td>
-  <td><?=$m->pageViews?></td>
-  <td><?=$m->visits?></td>
-  <td><?php printf('%0.1f', $m->pageViews/$m->visits)?></td>
+  <td><a href="/web/<?=$w->month?>" title="edit web metrics"><?=$w->month?></a></td>
+  <td><?=$w->uniques?></td>
+  <td><?=$w->pageViews?></td>
+  <td><?=$w->visits?></td>
+  <td><?php printf('%0.1f', $w->pageViews/$w->visits)?></td>
  </tr>
 <?php endforeach; ?>
 </table>
 
+<?php if ((isset($collapsed) && !$collapsed) || !isset($collapsed)): ?>
 <a href="/web">Enter Web Metrics</a>
+<?php endif; ?>
+
