@@ -14,12 +14,7 @@ class Users extends MY_Controller
   }
 
   function dashboard() {
-    $userid = $this->session->userdata('userid');
-    $data = array(
-      'revenues' => $this->Metric->getRevenueReport($userid),
-      'expenses' => $this->Metric->getBurnReport($userid));
-
-    $this->load->view('pageTemplate', array('content' => $this->load->view('users/dashboard', $data, true)));
+    $this->load->view('pageTemplate', array('content' => $this->load->view('users/dashboard', null, true)));
   }
 
   function account() {
