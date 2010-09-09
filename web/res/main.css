@@ -219,3 +219,9 @@ a.dialogClose {
   font-style: italic;
 }
 
+.defn {
+  background-color: #E6F1F3;
+  margin: 1em 0;
+  padding: 5px 15px;
+}
+
