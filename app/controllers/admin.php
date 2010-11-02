@@ -25,5 +25,17 @@ class Admin extends Controller
     $user = $this->User->findById($id);
     $this->load->view('admin/userDetail', array('user' => $user));
   }
+
+  function backup() {
+    if (!$this->form_validation->run('admin_backup')) {
+      $this->load->view('pageTemplate', array('content' => $this->load->view('admin/backup', null, true)));
+    }
+    else {
+      $this->load->dbutil();
+      $backup =& $this->dbutil->backup();
+      $this->load->helper('download');
+      force_download($this->input->post('prefix').'.sql.gz', $backup);
+    }
+  }
 }
 
