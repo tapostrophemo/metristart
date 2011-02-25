@@ -49,18 +49,6 @@ class Metrics extends MY_Controller
     }
   }
 
-  function revgraph($height) {
-    $this->load->library('bargraph');
-
-    $data = $this->Metric->getRevenueReport($this->session->userdata('userid'));
-    $revs = array();
-    foreach ($data as $r) {
-      $revs[] = $r->revenue;
-    }
-    $this->bargraph->setData($revs);
-    $this->bargraph->render((int) $height);
-  }
-
   function revenues() {
     $data = array('revenues' => $this->Metric->getRevenueReport($this->session->userdata('userid')));
     $this->load->view('pageTemplate', array('content' => $this->load->view('metrics/revenues', $data, true)));
@@ -120,18 +108,6 @@ class Metrics extends MY_Controller
     }
   }
 
-  function burngraph($height) {
-    $this->load->library('bargraph');
-
-    $data = $this->Metric->getBurnReport($this->session->userdata('userid'));
-    $exps = array();
-    foreach ($data as $e) {
-      $exps[] = $e->cash;
-    }
-    $this->bargraph->setData($exps);
-    $this->bargraph->render((int) $height);
-  }
-
   function burnrate() {
     $data = array('expenses' => $this->Metric->getBurnReport($this->session->userdata('userid')));
     $this->load->view('pageTemplate', array('content' => $this->load->view('metrics/burnrate', $data, true)));
@@ -179,33 +155,6 @@ class Metrics extends MY_Controller
     }
   }
 
-  function userbasegraph($height) {
-    $this->load->library('bargraph');
-
-    $data = $this->Metric->getUserbaseReport($this->session->userdata('userid'));
-    $ub = array();
-    foreach ($data as $r) {
-      $ub[] = $r->registrations;
-    }
-/* TODO: determine which metric (or combination thereof) best represents userbase data
-    foreach ($data as $a) {
-      $ub[] = -1*$a->activations;
-    }
-    foreach ($data as $r30) {
-      $ub[] = $r30->retentions30;
-    }
-    foreach ($data as $r90) {
-      $ub[] = -1*$r90->retentions90;
-    }
-    foreach ($data as $p) {
-      $ub[] = $p->payingCustomers;
-    }
-*/
-
-    $this->bargraph->setData($ub);
-    $this->bargraph->render((int) $height);
-  }
-
   function ub() {
     $data = array('userbase' => $this->Metric->getUserbaseReport($this->session->userdata('userid')));
     $this->load->view('pageTemplate', array('content' => $this->load->view('metrics/userbase', $data, true)));
@@ -246,19 +195,6 @@ class Metrics extends MY_Controller
         $this->redirectWithError('Problem saving web metrics.', '/dashboard');
       }
     }
-  }
-
-  function webgraph($height) {
-    $this->load->library('bargraph');
-
-    $data = $this->Metric->getWebMetricsReport($this->session->userdata('userid'));
-    $wm = array();
-    foreach ($data as $w) {
-      $wm[] = $w->pageViews; // TODO: similar to userbase, which metric is best for dashboard? uniques? visits?
-    }
-
-    $this->bargraph->setData($wm);
-    $this->bargraph->render((int) $height);
   }
 
   function wb() {
@@ -303,19 +239,6 @@ class Metrics extends MY_Controller
         $this->redirectWithError('Problems saving acquisition costs.', '/dashboard');
       }
     }
-  }
-
-  function acqgraph($height) {
-    $this->load->library('bargraph');
-
-    $data = $this->Metric->getAcquisitionCostsReport($this->session->userdata('userid'));
-    $metrics = array();
-    foreach ($data as $m) {
-      $metrics[] = $m->netCost; // TODO: similar to userbase, which metric is best for dashboard?
-    }
-
-    $this->bargraph->setData($metrics);
-    $this->bargraph->render((int) $height);
   }
 
   function acq() {

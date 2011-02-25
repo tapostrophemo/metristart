@@ -1,4 +1,4 @@
-<h2><a href="/metrics/revenues">Revenues <img src="/metrics/revgraph/16" alt="revenues"/></a></h2>
+<h2><a href="/metrics/revenues">Revenues <img src="/images/revgraph/16" alt="revenues"/></a></h2>
 
 <table class="report">
  <tr><th>Month</th><th>Revenue Amt.</th><th>Contrib. Margin</th><th>Net Op. Income</th></tr>

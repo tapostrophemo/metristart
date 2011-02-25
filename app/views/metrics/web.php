@@ -1,4 +1,4 @@
-<h2<a href="/metrics/wb">Web Metrics <img src="/metrics/webgraph/16" alt="web metrics"/></a></h2>
+<h2<a href="/metrics/wb">Web Metrics <img src="/images/webgraph/16" alt="web metrics"/></a></h2>
 
 <table class="report">
  <tr><th>Month</th><th>Uniq. Visitors</th><th>Tot. Page Views</th><th>Tot. Visits</th><th>Page Views/Visit</th></tr>

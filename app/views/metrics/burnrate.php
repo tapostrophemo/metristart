@@ -1,4 +1,4 @@
-<h2><a href="/metrics/burnrate">Burn Rate / Expenses <img src="/metrics/burngraph/16" alt="burnrate"/></a></h2>
+<h2><a href="/metrics/burnrate">Burn Rate / Expenses <img src="/images/burngraph/16" alt="burnrate"/></a></h2>
 
 <table class="report">
  <tr><th>Month</th><th>Expenses</th><th>Description</th><th>Cash Remaining</th></tr>
