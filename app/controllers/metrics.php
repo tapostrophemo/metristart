@@ -17,41 +17,20 @@ class Metrics extends MY_Controller
   }
 
   function revenue($month = null, $year = null) {
-    $data['editing'] = $month != null && $year != null;
-
     if (!$this->form_validation->run('metrics_revenue')) {
-      if ($data['editing']) {
-        $data = $this->Metric->getRevenue($this->userid, "$month/$year");
-        $data['editing'] = true;
-      }
-      $data['last_entry_date'] = $this->Metric->lastEntryDate('revenue', $this->userid);
-      $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/revenue.php', $data, true)));
+      $this->_showForm('getRevenue', 'revenue', 'dataentry/revenue', $month, $year);
     }
     else {
-      $editing = $this->input->post('editing');
-      $next = $this->_next($editing);
-
-      if ($editing) {
-        $status = $this->Metric->updateRevenues($this->userid,
-          $this->input->post('segment'),
-          $this->input->post('revenue'),
-          $this->input->post('varcost'),
-          $this->input->post('fixcost'));
-      }
-      else {
-        $status = $this->Metric->saveRevenues($this->userid,
-          $this->input->post('segment'),
-          $this->input->post('revenue'),
-          $this->input->post('varcost'),
-          $this->input->post('fixcost'));
-      }
-      if ($status) {
-        $this->redirectWithMessage('Revenues saved.', $next);
-      }
-      else {
-        $this->redirectWithError('Problem saving revenues.', $next);
-      }
+      $this->_saveForm('updateRevenues', 'saveRevenues', '_revenueFields', 'Revenues saved.', 'Problem saving revenues.');
     }
+  }
+
+  function _revenueFields() {
+    return array(
+      $this->input->post('segment'),
+      $this->input->post('revenue'),
+      $this->input->post('varcost'),
+      $this->input->post('fixcost'));
   }
 
   function revenues() {
@@ -120,42 +99,21 @@ class Metrics extends MY_Controller
   function userbase($month = null, $year = null) {
     $data['editing'] = $month != null && $year != null;
     if (!$this->form_validation->run('metrics_userbase')) {
-      if ($data['editing']) {
-        $data = $this->Metric->getUserbase($this->userid, "$month/$year");
-        $data['editing'] = true;
-      }
-      $data['last_entry_date'] = $this->Metric->lastEntryDate('registrations', $this->userid);
-      $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/userbase', $data, true)));
+      $this->_showForm('getUserbase', 'registrations', 'dataentry/userbase', $month, $year);
     }
     else {
-      $editing = $this->input->post('editing');
-      $next = $this->_next($editing);
-
-      if ($editing) {
-        $status = $this->Metric->updateUserbase($this->userid,
-          $this->input->post('segment'),
-          $this->input->post('registrations'),
-          $this->input->post('activations'),
-          $this->input->post('retentions30'),
-          $this->input->post('retentions90'),
-          $this->input->post('paying'));
-      }
-      else {
-        $status = $this->Metric->saveUserbase($this->userid,
-          $this->input->post('segment'),
-          $this->input->post('registrations'),
-          $this->input->post('activations'),
-          $this->input->post('retentions30'),
-          $this->input->post('retentions90'),
-          $this->input->post('paying'));
-      }
-      if ($status) {
-        $this->redirectWithMessage('Userbase data saved.', $next);
-      }
-      else {
-        $this->redirectWithError('Problem saving userbase data.', $next);
-      }
+      $this->_saveForm('updateUserbase', 'saveUserbase', '_userbaseFields', 'Userbase data saved.', 'Problem saving userbase data.');
     }
+  }
+
+  function _userbaseFields() {
+    return array(
+      $this->input->post('segment'),
+      $this->input->post('registrations'),
+      $this->input->post('activations'),
+      $this->input->post('retentions30'),
+      $this->input->post('retentions90'),
+      $this->input->post('paying'));
   }
 
   function ub() {
@@ -165,40 +123,19 @@ class Metrics extends MY_Controller
 
   function web($month = null, $year = null) {
     if (!$this->form_validation->run('metrics_web')) {
-      $data['editing'] = false;
-      if ($month != null && $year != null) {
-        $data = $this->Metric->getWeb($this->userid, "$month/$year");
-        $data['editing'] = true;
-      }
-      $data['last_entry_date'] = $this->Metric->lastEntryDate('pageViews', $this->userid);
-      $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/web', $data, true)));
+      $this->_showForm('getWeb', 'pageViews', 'dataentry/web', $month, $year);
     }
     else {
-      $editing = $this->input->post('editing');
-      $next = $this->_next($editing);
-
-      if ($editing) {
-        $status = $this->Metric->updateWeb($this->userid,
-          $this->input->post('segment'),
-          $this->input->post('uniques'),
-          $this->input->post('views'),
-          $this->input->post('visits'));
-      }
-      else {
-        $status = $this->Metric->saveWeb($this->userid,
-          $this->input->post('segment'),
-          $this->input->post('uniques'),
-          $this->input->post('views'),
-          $this->input->post('visits'));
-      }
-
-      if ($status) {
-        $this->redirectWithMessage('Web metrics saved.', $next);
-      }
-      else {
-        $this->redirectWithError('Problem saving web metrics.', $next);
-      }
+      $this->_saveForm('updateWeb', 'saveWeb', '_webFields', 'Web metrics saved.', 'Problem saving web metrics.');
     }
+  }
+
+  function _webFields() {
+    return array(
+      $this->input->post('segment'),
+      $this->input->post('uniques'),
+      $this->input->post('views'),
+      $this->input->post('visits'));
   }
 
   function wb() {
@@ -208,42 +145,20 @@ class Metrics extends MY_Controller
 
   function acquisition($month = null, $year = null) {
     if (!$this->form_validation->run('metrics_acquisition')) {
-      $data['editing'] = false;
-      if (!$month == null && !$year == null) {
-        $data = $this->Metric->getAcquisitions($this->userid, "$month/$year");
-        $data['editing'] = true;
-      }
-      $data['last_entry_date'] = $this->Metric->lastEntryDate('acqPaidCost', $this->userid);
-      $this->load->view('pageTemplate', array('content' => $this->load->view('dataentry/acquisition', $data, true)));
+      $this->_showForm('getAcquisitions', 'acqPaidCost', 'dataentry/acquisition', $month, $year);
     }
     else {
-      $editing = $this->input->post('editing');
-      $next = $this->_next($editing);
-
-      if ($editing) {
-        $status = $this->Metric->updateAcquisitions($this->userid,
-          $this->input->post('segment'),
-          $this->input->post('acqPaidCost'),
-          $this->input->post('acqNetCost'),
-          $this->input->post('ads'),
-          $this->input->post('viratio'));
-      }
-      else {
-        $status = $this->Metric->saveAcquisitions($this->userid,
-          $this->input->post('segment'),
-          $this->input->post('acqPaidCost'),
-          $this->input->post('acqNetCost'),
-          $this->input->post('ads'),
-          $this->input->post('viratio'));
-      }
-
-      if ($status) {
-        $this->redirectWithMessage('Acquisition costs saved.', $next);
-      }
-      else {
-        $this->redirectWithError('Problems saving acquisition costs.', $next);
-      }
+      $this->_saveForm('updateAcquisitions', 'saveAcquisitions', '_acquisitionFields', 'Acquisition costs saved.', 'Problems saving acquisition costs.');
     }
+  }
+
+  function _acquisitionFields() {
+    return array(
+      $this->input->post('segment'),
+      $this->input->post('acqPaidCost'),
+      $this->input->post('acqNetCost'),
+      $this->input->post('ads'),
+      $this->input->post('viratio'));
   }
 
   function acq() {
@@ -258,6 +173,32 @@ class Metrics extends MY_Controller
     $data['web'] = $this->Metric->getWebMetricsReport($this->userid);
     $data['acquisition'] = $this->Metric->getAcquisitionCostsReport($this->userid);
     $this->load->view('pageTemplate', array('content' => $this->load->view('metrics/fullReport', $data, true)));
+  }
+
+  function _showForm($dataGetter, $metricKey, $viewName, $month = null, $year = null) {
+    $data['editing'] = false;
+    if ($month != null && $year != null) {
+      $data = $this->Metric->$dataGetter($this->userid, "$month/$year");
+      $data['editing'] = true;
+    }
+    $data['last_entry_date'] = $this->Metric->lastEntryDate($metricKey, $this->userid);
+    $this->load->view('pageTemplate', array('content' => $this->load->view($viewName, $data, true)));
+  }
+
+  function _saveForm($update, $save, $formFields, $success, $error) {
+    $editing = $this->input->post('editing');
+    $next = $this->_next($editing);
+
+    $status = $editing
+      ? $this->Metric->$update($this->userid, $this->$formFields())
+      : $this->Metric->$save($this->userid, $this->$formFields());
+
+    if ($status) {
+      $this->redirectWithMessage($success, $next);
+    }
+    else {
+      $this->redirectWithError($error, $next);
+    }
   }
 
   function _next($editing = false) {

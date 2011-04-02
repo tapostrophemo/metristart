@@ -31,7 +31,9 @@ class Metric extends Model
     return $query->num_rows() > 0 ? $query->row()->last_entry_date : null;
   }
 
-  function saveRevenues($userid, $month, $revenue, $variableCost, $fixedCost) {
+  function saveRevenues($userid, $args) {
+    list($month, $revenue, $variableCost, $fixedCost) = $args;
+
     $this->db->trans_start();
 
     $this->save('revenue', $userid, $month, $revenue);
@@ -42,7 +44,9 @@ class Metric extends Model
     return $this->db->trans_status();
   }
 
-  function updateRevenues($userid, $month, $revenue, $variableCost, $fixedCost) {
+  function updateRevenues($userid, $args) {
+    list($month, $revenue, $variableCost, $fixedCost) = $args;
+
     $this->db->trans_start();
 
     $this->update('revenue', $userid, $month, $revenue);
@@ -155,7 +159,9 @@ class Metric extends Model
     return $data;
   }
 
-  function saveUserbase($userid, $month, $registrations, $activations, $retentions30, $retentions90, $paying) {
+  function saveUserbase($userid, $args) {
+    list($month, $registrations, $activations, $retentions30, $retentions90, $paying) = $args;
+
     $this->db->trans_start();
 
     $this->save('registrations', $userid, $month, $registrations);
@@ -168,7 +174,9 @@ class Metric extends Model
     return $this->db->trans_status();
   }
 
-  function updateUserbase($userid, $month, $registrations, $activations, $retentions30, $retentions90, $paying) {
+  function updateUserbase($userid, $args) {
+    list($month, $registrations, $activations, $retentions30, $retentions90, $paying) = $args;
+
     $this->db->trans_start();
 
     $this->update('registrations', $userid, $month, $registrations);
@@ -212,7 +220,9 @@ class Metric extends Model
     return $ret;
   }
 
-  function saveWeb($userid, $month, $uniques, $views, $visits) {
+  function saveWeb($userid, $args) {
+    list($month, $uniques, $views, $visits) = $args;
+
     $this->db->trans_start();
 
     $this->save('uniques', $userid, $month, $uniques);
@@ -223,7 +233,9 @@ class Metric extends Model
     return $this->db->trans_status();
   }
 
-  function updateWeb($userid, $month, $uniques, $views, $visits) {
+  function updateWeb($userid, $args) {
+    list($month, $uniques, $views, $visits) = $args;
+
     $this->db->trans_start();
 
     $this->update('uniques', $userid, $month, $uniques);
@@ -260,7 +272,9 @@ class Metric extends Model
     return $ret;
   }
 
-  function saveAcquisitions($userid, $month, $paidCost, $netCost, $adCost, $viralRatio) {
+  function saveAcquisitions($userid, $args) {
+    list($month, $paidCost, $netCost, $adCost, $viralRatio) = $args;
+
     $this->db->trans_start();
 
     $this->save('acqPaidCost', $userid, $month, $paidCost);
@@ -272,7 +286,9 @@ class Metric extends Model
     return $this->db->trans_status();
   }
 
-  function updateAcquisitions($userid, $month, $paidCost, $netCost, $adCost, $viralRatio) {
+  function updateAcquisitions($userid, $args) {
+    list($month, $paidCost, $netCost, $adCost, $viralRatio) = $args;
+
     $this->db->trans_start();
 
     $this->update('acqPaidCost', $userid, $month, $paidCost);
