@@ -18,6 +18,8 @@
 <?=validation_errors()?>
 
 <?=form_open('expense')?>
+<input type="hidden" name="editing" value="<?=$editing ? 1 : 0?>"/>
+<?php if ($editing): ?><input type="hidden" name="segment" value="<?=$expenses->segment?>"/><?php endif; ?>
 <table class="entryForm rounded">
  <tr>
   <td><label>Month</label></td>
@@ -64,7 +66,5 @@
  </tr>
 </table>
 
-<input type="hidden" name="editing" value="<?=$editing ? 1 : 0?>"/>
-<?php if ($editing): ?><input type="hidden" name="segment" value="<?=$expenses->segment?>"/><?php endif; ?>
 </form>
 

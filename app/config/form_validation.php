@@ -33,7 +33,7 @@ $config = array(
   ),
 
   'metrics_infusion' => array(
-    array('field' => 'amount', 'label' => 'amount', 'rules' => 'trim|required|integer'),
+    array('field' => 'amount', 'label' => 'initial cash infusion amount', 'rules' => 'trim|required|integer'),
   ),
 
   'metrics_userbase' => array(
