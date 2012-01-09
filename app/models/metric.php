@@ -2,14 +2,38 @@
 
 class Metric extends Model
 {
+  var $metricKeys;
+
+  function __construct() {
+    parent::Model();
+    $this->metricKeys = array(
+      'expenses'    => array('expenses'),
+      'revenue'     => array('revenue', 'fixcost', 'varcost'),
+      'userbase'    => array('registrations', 'activations', 'retentions30', 'retentions90', 'payingCustomers'),
+      'web'         => array('uniques', 'pageViews', 'visits'),
+      'acquisition' => array('acqPaidCost', 'acqNetCost', 'ads', 'viratio'),
+    );
+  }
+
+  function categories() {
+    return array_keys($this->metricKeys);
+  }
+
   function isKey($userid, $name, $segment) {
-    $query = $this->db->where(array('user_id' => $userid, 'name' => $name, 'segment' => $segment))->get('metrics');
-    return $query->num_rows() == 1;
+    if (!isset($this->metricKeys[$name])) { return false; } // TODO: raise exception here?
+    $query = $this->db
+      ->where(array('user_id' => $userid, 'segment' => $segment))
+      ->where_in('name', $this->metricKeys[$name])
+      ->get('metrics');
+    return $query->num_rows() > 0;
   }
 
   function modifyKey($userid, $name, $fromSegment, $toSegment) {
-    $this->db
-      ->where(array('user_id' => $userid, 'name' => $name, 'segment' => $fromSegment))
+    if (!isset($this->metricKeys[$name])) { return false; }
+    // TODO: transaction around this
+    return $this->db
+      ->where(array('user_id' => $userid, 'segment' => $fromSegment))
+      ->where_in('name', $this->metricKeys[$name])
       ->update('metrics', array('segment' => $toSegment));
   }
 

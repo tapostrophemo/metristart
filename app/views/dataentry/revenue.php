@@ -7,7 +7,7 @@
  <tr>
   <td><label>Month</label></td>
  <?php if ($editing): ?>
-  <td><?=$segment?></td>
+  <td><?=$segment?> <a id="modsegment" title="Alter month" href="/modsegment/revenue/<?=$segment?>">*</a></td>
  <?php else: ?>
   <td>
    <input type="text" name="segment" size="6" value="<?=set_value('segment')?>"/><br/>

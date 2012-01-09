@@ -51,8 +51,8 @@ class Metrics extends MY_Controller
   }
 
   function _is_modifiable_category($name) {
-    if (!in_array($name, array('expenses'))) {
-      $this->form_validation->set_message('_is_modifiable_category', "The %s '$name' is not modifiable at this time.");
+    if (!in_array($name, $this->Metric->categories())) {
+      $this->form_validation->set_message('_is_modifiable_category', "The %s '$name' is not a valid category.");
       return false;
     }
     return true;
