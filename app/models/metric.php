@@ -2,6 +2,17 @@
 
 class Metric extends Model
 {
+  function isKey($userid, $name, $segment) {
+    $query = $this->db->where(array('user_id' => $userid, 'name' => $name, 'segment' => $segment))->get('metrics');
+    return $query->num_rows() == 1;
+  }
+
+  function modifyKey($userid, $name, $fromSegment, $toSegment) {
+    $this->db
+      ->where(array('user_id' => $userid, 'name' => $name, 'segment' => $fromSegment))
+      ->update('metrics', array('segment' => $toSegment));
+  }
+
   function save($metric, $userid, $month, $number, $description = null) {
     $data = array('name' => $metric, 'user_id' => $userid, 'segment' => $month, 'data' => $number);
     if (null != $description) {

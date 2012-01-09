@@ -26,6 +26,11 @@ $config = array(
     array('field' => 'fixcost', 'label' => 'total fixed costs', 'rules' => 'trim|required|integer'),
   ),
 
+  'metrics_modsegment' => array(
+    array('field' => 'name', 'label' => 'category', 'rules' => 'trim|required|xss_clean|callback__is_modifiable_category'),
+    array('field' => 'segment', 'label' => 'new month', 'rules' => 'trim|required|mm_yyyy|callback__is_unused_segment'),
+  ),
+
   'metrics_expense' => array(
     array('field' => 'segment', 'label' => 'month', 'rules' => 'trim|required|mm_yyyy'),
     array('field' => 'expenses', 'label' => 'total expenses', 'rules' => 'trim|required|integer'),

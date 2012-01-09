@@ -83,6 +83,13 @@ a {
   color: #716f5b;
   font-weight: bold;
 }
+a#modsegment {
+  color: #c6bfaf;
+  text-decoration: none;
+}
+a#modsegment:hover {
+  color: #716f5b;
+}
 
 label, dt {
   font-weight: bold;

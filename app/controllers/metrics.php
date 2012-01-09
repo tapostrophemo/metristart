@@ -38,6 +38,35 @@ class Metrics extends MY_Controller
     $this->load->view('pageTemplate', array('content' => $this->load->view('metrics/revenues', $data, true)));
   }
 
+  function modsegment($name, $fromMonth, $fromYear) {
+    $fromSegment = "$fromMonth/$fromYear";
+    if (!$this->form_validation->run('metrics_modsegment')) {
+      $content = $this->load->view('dataentry/modsegment', array('name' => $name, 'segment' => $fromSegment), true);
+      $this->load->view('pageTemplate', array('content' => $content));
+    }
+    else {
+      $this->Metric->modifyKey($this->userid, $name, $fromSegment, $this->input->post('segment'));
+      $this->redirectWithMessage("Segment for '$name' category updated.", '/dashboard');
+    }
+  }
+
+  function _is_modifiable_category($name) {
+    if (!in_array($name, array('expenses'))) {
+      $this->form_validation->set_message('_is_modifiable_category', "The %s '$name' is not modifiable at this time.");
+      return false;
+    }
+    return true;
+  }
+
+  function _is_unused_segment($segment) {
+    $name = $this->uri->segment(2);
+    if ($this->Metric->isKey($this->userid, $name, $segment)) {
+      $this->form_validation->set_message('_is_unused_segment', 'Unable to change current month to "%s".');
+      return false;
+    }
+    return true;
+  }
+
   function expense($month = null, $year = null) {
     if (!$this->form_validation->run('metrics_expense')) {
       $data = array('cash' => $this->Metric->getCash($this->userid));
